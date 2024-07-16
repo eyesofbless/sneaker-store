@@ -1,6 +1,11 @@
+import Navigation from "@/components/Navigation";
+
 const Preloader = () => {
   return (
-      <div>loading</div>
+      <div className='flex justify-center items-center h-screen'>
+          <Navigation />
+        <div>loading...</div>
+      </div>
   )
 }
 

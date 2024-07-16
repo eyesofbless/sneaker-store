@@ -1,6 +1,11 @@
+import Navigation from "@/components/Navigation";
+
 const NotFound = () => {
   return (
-      <div>Такой страницы не существует</div>
+      <div className='flex justify-center items-center h-screen'>
+        <Navigation />
+        <div>Скоро...</div>
+      </div>
   )
 }
 
