@@ -3,11 +3,11 @@ import ShoesItem from "@/app/shoes/components/ShoesItem";
 import React from "react";
 
 interface ShoesListProps {
-    shoesImagePaths: any,
     models: any
 }
 
-const ShoesList: React.FC<ShoesListProps> = ({ shoesImagePaths, models }) => {
+const ShoesList: React.FC<ShoesListProps> = ({models}) => {
+
     return (
         <div className="
         grid
@@ -18,10 +18,11 @@ const ShoesList: React.FC<ShoesListProps> = ({ shoesImagePaths, models }) => {
         gap-[10px]">
             {models.map((sneakers: any) => (
                 <ShoesItem
-                    key={sneakers.image_path}
+                    key={sneakers.id}
                     image_path={sneakers.image_path}
                     brand={sneakers.brand}
                     model={sneakers.model}
+                    price={sneakers.price}
                 />
             ))}
         </div>

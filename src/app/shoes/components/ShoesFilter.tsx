@@ -1,128 +1,231 @@
-'use client'
+'use client';
 
-import {IoIosArrowDown} from "react-icons/io";
-import React, {useState} from "react";
+import { IoIosArrowDown } from "react-icons/io";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import qs from "query-string";
 
 interface ShoesFilterProps {
-    brands: { 'brand': string }[]
+    brands: { 'brand': string }[];
 }
 
-const ShoesFilter: React.FC<ShoesFilterProps> = ({brands}) => {
+const ShoesFilter: React.FC<ShoesFilterProps> = ({ brands }) => {
+    const router = useRouter();
 
-    let [open, toggleOpen] = useState(
-        [
-            {active: false},
-            {active: true},
-            {active: true},
-            {active: false}])
 
-    const toggleActive = (index: number) => {
-        const updatedOpen = open.map((item, i) => ({
-            ...item,
-            active: i === index ? !item.active : item.active
-        }));
-        toggleOpen(updatedOpen);
+    // Функция для сброса фильтров
+    const resetFilters = () => {
+        router.push('/shoes'); // Перезагружаем страницу без параметров
     };
 
-    const styleForShoesFilter = 'hover:text-blue-600 transition cursor-pointer'
+    const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+    const [checkedStates, setCheckedStates] = useState<Record<string, boolean>>({});
+
+    const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+    const [selectedSeasons, setSelectedSeasons] = useState<string[]>([]);
+    const [selectedGenders, setSelectedGenders] = useState<string[]>([]);
+
+    useEffect(() => {
+        // Сброс фильтров при загрузке компонента
+        resetFilters();
+    }, []);
+
+    useEffect(() => {
+        let query: Record<string, any> = {};
+
+        if (selectedBrands.length > 0) {
+            query.brands = selectedBrands.join(',');
+        }
+
+        if (selectedTypes.length > 0) {
+            query.types = selectedTypes.join(',');
+        }
+
+        if (selectedSeasons.length > 0) {
+            query.seasons = selectedSeasons.join(',');
+        }
+
+        if (selectedGenders.length > 0) {
+            query.genders = selectedGenders.join(',');
+        }
+
+        const url = qs.stringifyUrl({
+            url: "/shoes",
+            query: query,
+        });
+
+        router.push(url);
+    }, [selectedBrands, selectedTypes, selectedSeasons, selectedGenders, router]);
+
+    let [open, setOpen] = useState([false, true, true, false]);
+
+    const toggleOpen = (index: number) => {
+        const updatedOpen = open.map((item, i) => (i === index ? !item : item));
+        setOpen(updatedOpen);
+    };
+
+    const handleBrandChange = (brand: string, checked: boolean) => {
+        setCheckedStates(prev => ({ ...prev, [brand]: checked }));
+        setSelectedBrands(prev =>
+            checked ? [...prev, brand] : prev.filter(b => b !== brand)
+        );
+    };
+
+    const handleTypeChange = (type: string, checked: boolean) => {
+        setSelectedTypes(prev =>
+            checked ? [...prev, type] : prev.filter(t => t !== type)
+        );
+    };
+
+    const handleSeasonChange = (season: string, checked: boolean) => {
+        setSelectedSeasons(prev =>
+            checked ? [...prev, season] : prev.filter(s => s !== season)
+        );
+    };
+
+    const handleGenderChange = (gender: string, checked: boolean) => {
+        setSelectedGenders(prev =>
+            checked ? [...prev, gender] : prev.filter(g => g !== gender)
+        );
+    };
+
+    const styleForShoesFilter = 'hover:text-blue-600 transition cursor-pointer';
 
     return (
         <div className='h-[calc(100vh-100px)] pr-2 overflow-y-scroll w-[150px] sm:block hidden'>
             <div className='border-t-2 border-[#e0dedc]'>
                 <div className='flex flex-row justify-between'>
-                    <p
-                        className='
-                  text-[#929292]
-                  mb-4'
-                    >Обувь</p>
+                    <p className='text-[#929292] mb-4'>Обувь</p>
                     <IoIosArrowDown
-                        onClick={() => toggleActive(0)}
-                        className='
-                        mt-[3px]
-                        cursor-pointer
-                        text-[#e0dedc]'
-                        size={25}/>
+                        onClick={() => toggleOpen(0)}
+                        className='mt-[3px] cursor-pointer text-[#e0dedc]'
+                        size={25} />
                 </div>
-                {open[0].active && <ul className='flex flex-col gap-2 mb-5'>
-                    <li className={styleForShoesFilter}>Кроссовки</li>
-                    <li className={styleForShoesFilter}>Ботинки</li>
-                    <li className={styleForShoesFilter}>Кеды</li>
-                </ul>}
+                {open[0] &&
+                    <ul className='flex flex-col gap-2 mb-5'>
+                        <li className='flex'>
+                            <input
+                                className="mr-3 cursor-pointer"
+                                type='checkbox'
+                                checked={selectedTypes.includes('sneakers')}
+                                onChange={(e) => handleTypeChange('sneakers', e.target.checked)}
+                            />
+                            <p>Кроссовки</p>
+                        </li>
+                        <li className='flex'>
+                            <input
+                                className="mr-3 cursor-pointer"
+                                type='checkbox'
+                                checked={selectedTypes.includes('boots')}
+                                onChange={(e) => handleTypeChange('boots', e.target.checked)}
+                            />
+                            <p>Ботинки</p>
+                        </li>
+                        <li className='flex'>
+                            <input
+                                className="mr-3 cursor-pointer"
+                                type='checkbox'
+                                checked={selectedTypes.includes('gumshoes')}
+                                onChange={(e) => handleTypeChange('gumshoes', e.target.checked)}
+                            />
+                            <p>Кеды</p>
+                        </li>
+                    </ul>
+                }
             </div>
             <div className='border-t-2 border-[#e0dedc]'>
                 <div className='flex flex-row justify-between'>
-                    <p
-                        className='
-                  text-[#929292]
-                  mb-4'
-                    >Бренды</p>
+                    <p className='text-[#929292] mb-4'>Бренды</p>
                     <IoIosArrowDown
-                        onClick={() => toggleActive(1)}
-                        className='
-                        mt-[3px]
-                        cursor-pointer
-                        text-[#e0dedc]'
-                        size={25}/>
+                        onClick={() => toggleOpen(1)}
+                        className='mt-[3px] cursor-pointer text-[#e0dedc]'
+                        size={25} />
                 </div>
-                {open[1].active && <ul className="flex flex-col gap-2 mb-5">
+                {open[1] && <ul className="flex flex-col gap-2 mb-5">
                     {brands.map((item) =>
-                        <li className=" flex">
-                            <input className="mr-3 cursor-pointer" type={'checkbox'}/>
+                        <li className="flex" key={item.brand}>
+                            <input
+                                className="mr-3 cursor-pointer"
+                                type='checkbox'
+                                checked={checkedStates[item.brand] || false}
+                                onChange={(e) => handleBrandChange(item.brand, e.target.checked)}
+                            />
                             <p>{item.brand}</p>
-                        </li>)}
+                        </li>
+                    )}
                 </ul>}
             </div>
             <div className='border-t-2 border-[#e0dedc]'>
                 <div className='flex flex-row justify-between'>
-                    <p
-                        className='
-                  text-[#929292]
-                  mb-4'
-                    >Сезон</p>
+                    <p className='text-[#929292] mb-4'>Сезон</p>
                     <IoIosArrowDown
-                        onClick={() => toggleActive(2)}
-                        className='
-                        mt-[3px]
-                        cursor-pointer
-                        text-[#e0dedc]'
-                        size={25}/>
+                        onClick={() => toggleOpen(2)}
+                        className='mt-[3px] cursor-pointer text-[#e0dedc]'
+                        size={25} />
                 </div>
-                {open[2].active &&
+                {open[2] &&
                     <ul className="flex flex-col gap-2 mb-5">
-                        <li className={styleForShoesFilter}>Лето</li>
-                        <li className={styleForShoesFilter}>Зима</li>
-                        <li className={styleForShoesFilter}>Осень</li>
+                        <li className={styleForShoesFilter}>
+                            <input
+                                className="mr-3 cursor-pointer"
+                                type='checkbox'
+                                checked={selectedSeasons.includes('summer')}
+                                onChange={(e) => handleSeasonChange('summer', e.target.checked)}
+                            />
+                            Лето
+                        </li>
+                        <li className={styleForShoesFilter}>
+                            <input
+                                className="mr-3 cursor-pointer"
+                                type='checkbox'
+                                checked={selectedSeasons.includes('winter')}
+                                onChange={(e) => handleSeasonChange('winter', e.target.checked)}
+                            />
+                            Зима
+                        </li>
+                        <li className={styleForShoesFilter}>
+                            <input
+                                className="mr-3 cursor-pointer"
+                                type='checkbox'
+                                checked={selectedSeasons.includes('autumn')}
+                                onChange={(e) => handleSeasonChange('autumn', e.target.checked)}
+                            />
+                            Осень
+                        </li>
                     </ul>}
             </div>
             <div className='border-t-2 border-[#e0dedc]'>
                 <div className='flex flex-row justify-between'>
-                    <p
-                        className='
-                  text-[#929292]
-                  mb-4'
-                    >Пол</p>
+                    <p className='text-[#929292] mb-4'>Пол</p>
                     <IoIosArrowDown
-                        onClick={() => toggleActive(3)}
-                        className='
-                        mt-[3px]
-                        cursor-pointer
-                        text-[#e0dedc]'
-                        size={25}/>
+                        onClick={() => toggleOpen(3)}
+                        className='mt-[3px] cursor-pointer text-[#e0dedc]'
+                        size={25} />
                 </div>
-                {open[3].active &&
+                {open[3] &&
                     <ul className="flex flex-col gap-2 mb-5">
-                        <li className="flex">
-                            <input className="mr-3 cursor-pointer" type={'checkbox'}/>
+                        <li className='flex'>
+                            <input
+                                className="mr-3 cursor-pointer"
+                                type='checkbox'
+                                checked={selectedGenders.includes('man')}
+                                onChange={(e) => handleGenderChange('man', e.target.checked)}
+                            />
                             <p>Мужское</p>
                         </li>
-                        <li className="flex">
-                            <input className="mr-3 cursor-pointer" type={'checkbox'}/>
+                        <li className='flex'>
+                            <input
+                                className="mr-3 cursor-pointer"
+                                type='checkbox'
+                                checked={selectedGenders.includes('woman')}
+                                onChange={(e) => handleGenderChange('woman', e.target.checked)}
+                            />
                             <p>Женское</p>
                         </li>
                     </ul>}
             </div>
         </div>
-    )
+    );
 }
 
-export default ShoesFilter
+export default ShoesFilter;

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import Brand from "@/app/brands/components/Brand";
 
 interface BrandsIndexProps {
@@ -48,7 +48,7 @@ const BrandWithScroll: React.FC<{ brands: string[], letter: string }> = ({ brand
 
     return (
         <div ref={ref} className="pt-5"> {/* pt-5 добавляет отступ сверху */}
-            <Brand brands={brands} letter={letter} />
+            <Brand brands={brands} letter={letter}/>
         </div>
     );
 };

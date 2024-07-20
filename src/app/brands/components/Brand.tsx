@@ -5,7 +5,6 @@ import React from "react";
 interface BrandProps {
     letter: string
     brands: string[]
-
 }
 
 
@@ -26,8 +25,10 @@ const Brand: React.FC<BrandProps> = async ({letter, brands}) => {
                     '>{letter}</p>
             </div>
 
-            <div>{brands.map((item: any) =>
-                <div className='
+            <div>{brands.map((item: any,index) =>
+                <div
+                    key={index}
+                    className='
                     hover:text-blue-600
                     cursor-pointer
                     '>{item[0].toUpperCase() === letter && item}</div>

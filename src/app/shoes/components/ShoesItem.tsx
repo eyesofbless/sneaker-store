@@ -6,9 +6,10 @@ interface ShoesItemProps {
     image_path: string;
     brand: string;
     model: string;
+    price: number;
 }
 
-const ShoesItem: React.FC<ShoesItemProps> = ({ image_path, brand, model }) => {
+const ShoesItem: React.FC<ShoesItemProps> = ({image_path, brand, model, price}) => {
     const path = useLoadImage(image_path);
 
     return (
@@ -20,11 +21,13 @@ const ShoesItem: React.FC<ShoesItemProps> = ({ image_path, brand, model }) => {
                 width={100} height={100}
                 sizes="(width: 100% height: auto)"
             />
-            <div className='flex gap-2 items-center mb-2'>
-                <p>{brand}</p>
-                <p className='text-xs'>{model}</p>
+            <div className='flex flex-col gap-1 mb-2'>
+                <div className='flex gap-2 items-center'>
+                    <p>{brand}</p>
+                    <p className='text-xs'>{model}</p>
+                </div>
+                <p>{price} ₽</p>
             </div>
-            <p></p>
         </div>
     );
 };
