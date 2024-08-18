@@ -5,7 +5,7 @@ interface HeaderProps {
     children: React.ReactNode
 }
 
-const Header: FC<HeaderProps> = async ({children}) => {
+const Header: FC<HeaderProps> = ({children}) => {
 
     return (
         <div

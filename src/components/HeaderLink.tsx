@@ -7,17 +7,13 @@ import {FC} from "react";
 interface HeaderLinkProps {
     name: string
     path: string
+    styles:string
 }
 
-const HeaderLink: FC<HeaderLinkProps> = ({name, path}) => {
+const HeaderLink: FC<HeaderLinkProps> = ({name, path, styles}) => {
     return (
         <div>
-            <div className="
-      hover:text-blue-600
-      transition
-      text-[15px]
-      text-black
-      ">
+            <div className={styles}>
                 <Link href={path}>{name}</Link>
             </div>
         </div>

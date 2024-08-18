@@ -14,7 +14,8 @@ const Input = () => {
                 className='
                 relative
                 text-black
-                cursor-pointer' size={35}/>
+                cursor-pointer
+                ' size={35}/>
             {isOpen &&
             <div
                 className="

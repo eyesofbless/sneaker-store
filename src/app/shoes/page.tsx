@@ -4,8 +4,9 @@ import { getBrands } from "../../../requests/getBrands";
 import Filters from "@/app/shoes/components/Filters";
 import ShoesList from "@/app/shoes/components/ShoesList";
 import { getShoesByFilters } from "../../../requests/getShoesByFilters";
+import FiltersSidebar from "@/app/shoes/components/FiltersSidebar";
 
-export const revalidate = 0;
+
 
 interface FilterProps {
     searchParams: {
@@ -19,6 +20,7 @@ interface FilterProps {
 
 const Shoes = async ({ searchParams }: FilterProps) => {
     let brands = await getBrands('shoes');
+
 
     let shoesModels = await getShoesByFilters(
         searchParams.brands,
@@ -37,7 +39,7 @@ const Shoes = async ({ searchParams }: FilterProps) => {
                 <p className='text-3xl font-bold sm:hidden'>ОБУВЬ</p>
                 <div className='flex justify-between mb-5 mt-5 items-center'>
                     <p className='text-3xl font-bold sm:block hidden'>ОБУВЬ</p>
-                    <p className='sm:hidden text-[15px] rounded-3xl border-[1px] border-gray-400 cursor-pointer p-2 hover:bg-black hover:text-white transition duration-150'>Фильтры</p>
+                    <FiltersSidebar brands={brands}/>
                     <Filters currentFilters={searchParams} />
                 </div>
                 <div className='flex justify-between items-start'>

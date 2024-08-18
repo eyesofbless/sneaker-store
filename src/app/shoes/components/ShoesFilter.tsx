@@ -5,18 +5,13 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import qs from "query-string";
 
-interface ShoesFilterProps {
+export interface ShoesFilterProps {
     brands: { 'brand': string }[];
+    isVisible?: boolean;
 }
 
-const ShoesFilter: React.FC<ShoesFilterProps> = ({ brands }) => {
+const ShoesFilter: React.FC<ShoesFilterProps> = ({brands,isVisible}) => {
     const router = useRouter();
-
-
-    // Функция для сброса фильтров
-    const resetFilters = () => {
-        router.push('/shoes'); // Перезагружаем страницу без параметров
-    };
 
     const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
     const [checkedStates, setCheckedStates] = useState<Record<string, boolean>>({});
@@ -25,10 +20,7 @@ const ShoesFilter: React.FC<ShoesFilterProps> = ({ brands }) => {
     const [selectedSeasons, setSelectedSeasons] = useState<string[]>([]);
     const [selectedGenders, setSelectedGenders] = useState<string[]>([]);
 
-    useEffect(() => {
-        // Сброс фильтров при загрузке компонента
-        resetFilters();
-    }, []);
+
 
     useEffect(() => {
         let query: Record<string, any> = {};
@@ -92,8 +84,12 @@ const ShoesFilter: React.FC<ShoesFilterProps> = ({ brands }) => {
     const styleForShoesFilter = 'hover:text-blue-600 transition cursor-pointer';
 
     return (
-        <div className='h-[calc(100vh-100px)] pr-2 overflow-y-scroll w-[150px] sm:block hidden'>
-            <div className='border-t-2 border-[#e0dedc]'>
+        <div className={`
+        h-[calc(100vh-100px)] 
+        pr-2 
+        overflow-y-auto 
+        ${isVisible ? 'block w-full': 'sm:block hidden w-[150px]'}`}>
+            <div className={`${!isVisible && 'border-t-2 border-[#e0dedc]'}`}>
                 <div className='flex flex-row justify-between'>
                     <p className='text-[#929292] mb-4'>Обувь</p>
                     <IoIosArrowDown

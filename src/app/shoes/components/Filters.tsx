@@ -5,15 +5,20 @@ import { useRouter } from "next/navigation";
 import qs from "query-string";
 
 const Filters = ({ currentFilters }:any) => {
-    const [selectedOption, setSelectedOption] = useState('Цена (по возрастанию)');
-    console.log(selectedOption);
+    const [selectedOption, setSelectedOption] = useState('');
 
     const router = useRouter();
+
 
     useEffect(() => {
         let query: Record<string, any> = {
             ...currentFilters
         };
+
+        if (currentFilters) {
+            query.selectedOption = 'price ascending'
+        }
+
         if (selectedOption === 'Цена (по возрастанию)') {
             query.selectedOption = 'price ascending'
         }
@@ -37,7 +42,7 @@ const Filters = ({ currentFilters }:any) => {
     return (
         <div>
             <select
-                value={selectedOption}
+                defaultValue={'Цена (по возрастанию)'}
                 onChange={(e) => setSelectedOption(e.target.value)}
                 className="
               text-[13px]

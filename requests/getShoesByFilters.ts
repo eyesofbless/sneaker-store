@@ -36,6 +36,10 @@ export const getShoesByFilters = async (
         query = query.filter('season', 'in', `(${seasons})`);
     }
 
+    if (!selectedOption) {
+        query = query.order('price', {ascending: true})
+    }
+
     if (selectedOption === 'price ascending') {
         query = query.order('price', {ascending: true});
     }
@@ -58,14 +62,6 @@ export const getShoesByFilters = async (
     }
 
 
-    return (data?.sort(function (a, b) {
-        if (a.price > b.price) {
-            return 1;
-        }
-        if (a.price < b.price) {
-            return -1;
-        }
-        // a должно быть равным b
-        return 0;
-    }) as any) || [];
+
+    return  (data as any) || []
 };

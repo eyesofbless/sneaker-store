@@ -8,6 +8,7 @@ interface ShoesListProps {
 
 const ShoesList: React.FC<ShoesListProps> = ({models}) => {
 
+
     return (
         <div className="
         grid
@@ -18,6 +19,7 @@ const ShoesList: React.FC<ShoesListProps> = ({models}) => {
         gap-[10px]">
             {models.map((sneakers: any) => (
                 <ShoesItem
+                    id={sneakers.id}
                     key={sneakers.id}
                     image_path={sneakers.image_path}
                     brand={sneakers.brand}
