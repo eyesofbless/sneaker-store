@@ -11,7 +11,8 @@ const Sidebar: React.FC<SidebarProps> = ({isOpen, setIsOpen}) => {
 
     const stylesForLink = 'text-black' +
         ' hover:bg-gray-100' +
-        ' p-2 cursor'
+        ' p-2 cursor' +
+        'cursor-pointer';
 
     return (
         <div

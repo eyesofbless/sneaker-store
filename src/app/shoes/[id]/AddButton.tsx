@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import useAddToBasket from "@/hooks/useAddToBasket";
+import useAddProduct from "@/hooks/basket/useAddProduct";
 import Link from "next/link";
 
 interface AddButtonProps {
@@ -16,7 +16,7 @@ const AddButton: React.FC<AddButtonProps> = ({product,size}) => {
     }, [size]);
 
 
-    const addToBasket = useAddToBasket(); // Получаем функцию из хука
+    const addToBasket = useAddProduct(); // Получаем функцию из хука
 
 
     return (

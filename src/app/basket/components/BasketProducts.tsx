@@ -1,31 +1,28 @@
 'use client'
 
-import {useEffect, useState} from "react";
-import {getBasketProducts} from "@/requests/getBasketProducts";
+import {useEffect} from "react";
 import ProductsCount from "@/app/basket/components/ProductsInfo";
 import ProductCard from "@/app/basket/components/ProductCard";
+import {useBasketStore} from "@/stores/basket-store";
 
 const BasketProducts = () => {
 
-    let [basketProducts, setBasketProducts] = useState([])
+    const {basketProducts, fetchBasketProducts}:any = useBasketStore()
+
     useEffect(() => {
-        const checkProductInCart = async () => {
-            let products = await getBasketProducts()
-            setBasketProducts(products)
-        };
-        checkProductInCart()
+        fetchBasketProducts()
     }, []);
 
 
     return (
         <div className="md:w-full">
-            <ProductsCount products={basketProducts} />
+            <ProductsCount />
             <div
                 className="
                 flex
                 flex-col
-                gap-5">
-                {basketProducts.map((basketProduct:any,index) => (
+                ">
+                {basketProducts.map((basketProduct:any,index:number) => (
                     <ProductCard product={basketProduct.item}
                                  size={basketProduct.size}
                                  count={basketProduct.count} key={index} />

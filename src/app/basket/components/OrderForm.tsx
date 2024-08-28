@@ -24,7 +24,9 @@ const OrderForm = () => {
                     <div className='flex flex-col'>
                         <label className={'text-[0.625rem] mb-2'}>EMAIL</label>
                         <input
+                            placeholder="awesomeyou@mail.com"
                             className="
+                            p-3
                             rounded-lg"
                             type={'email'}
                             {...register("email",
@@ -33,7 +35,9 @@ const OrderForm = () => {
                     <div className='flex flex-col'>
                         <label className={'text-[0.625rem] mb-2'}>ФИО</label>
                         <input
+                            placeholder="Морозов Иван Викторович"
                             className="
+                            p-3
                             rounded-lg"
                             type={'text'}
                             {...register("fullName",
@@ -42,7 +46,9 @@ const OrderForm = () => {
                     <div className='flex flex-col'>
                         <label className={'text-[0.625rem] mb-2'}>ТЕЛЕФОН</label>
                         <input
+                            placeholder="+7 952 999 99 99"
                             className="
+                            p-3
                             rounded-lg"
                             type={'tel'}
                             {...register("telephone",
@@ -51,7 +57,9 @@ const OrderForm = () => {
                     <div className='flex flex-col'>
                         <label className={'text-[0.625rem] mb-2'}>ГОРОД</label>
                         <input
+                            placeholder="Город"
                             className="
+                            p-3
                             rounded-lg"
                             type={'text'}
                             {...register("city",
