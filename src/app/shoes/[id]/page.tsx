@@ -1,6 +1,6 @@
 
 import ShoesPage from "@/app/shoes/[id]/ShoesPage";
-import {getShoesById} from "../../../../requests/getShoesById";
+import {getShoesById} from "@/requests/getShoesById";
 
 
 interface ParamsProps {

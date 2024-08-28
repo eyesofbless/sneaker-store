@@ -1,9 +1,9 @@
 import Navigation from "@/components/Navigation";
 import ShoesFilter from "@/app/shoes/components/ShoesFilter";
-import { getBrands } from "../../../requests/getBrands";
+import { getBrands } from "@/requests/getBrands";
 import Filters from "@/app/shoes/components/Filters";
 import ShoesList from "@/app/shoes/components/ShoesList";
-import { getShoesByFilters } from "../../../requests/getShoesByFilters";
+import { getShoesByFilters } from "@/requests/getShoesByFilters";
 import FiltersSidebar from "@/app/shoes/components/FiltersSidebar";
 
 

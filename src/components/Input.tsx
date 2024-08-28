@@ -21,7 +21,8 @@ const Input = () => {
                 className="
                 flex
                 gap-x-4
-                w-[70%]
+                w-[350px]
+                sm:w-[500px]
                 bg-white
                 rounded-lg
                 absolute

@@ -1,6 +1,7 @@
-import {createServerComponentClient} from "@supabase/auth-helpers-nextjs";
-import {cookies} from "next/headers";
+
 import {getShoes} from "./getShoes";
+
+import {createClient} from "../../supabase/server";
 
 export const getShoesByFilters = async (
     brands?: string[],
@@ -9,9 +10,7 @@ export const getShoesByFilters = async (
     seasons?: string[],
     selectedOption?: string
 ) => {
-    const supabase = createServerComponentClient({
-        cookies: cookies
-    });
+    const supabase = createClient()
 
     if (!brands && !types && !genders && !seasons && !selectedOption) {
         const allShoes = await getShoes();

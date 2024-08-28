@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
-import useAddToBasket from "../../../../hooks/useAddToBasket";
+import useAddToBasket from "@/hooks/useAddToBasket";
+import Link from "next/link";
 
 interface AddButtonProps {
     product: any;
@@ -9,7 +10,6 @@ interface AddButtonProps {
 const AddButton: React.FC<AddButtonProps> = ({product,size}) => {
 
     const [isInBasket, setIsInBasket] = useState(false)
-
 
     useEffect(() => {
         setIsInBasket(false)
@@ -29,7 +29,14 @@ const AddButton: React.FC<AddButtonProps> = ({product,size}) => {
                     border-gray-300
                     rounded-lg
                     text-[17px]">
-                            Товар добавлен в корзину
+                            Товар добавлен в {' '}
+                            <Link
+                                className='
+                                border-b
+                                border-gray-400'
+                                href={'/basket'}>
+                                 корзину
+                            </Link>
                         </span> :
                         <div className="flex gap-5">
                             <button

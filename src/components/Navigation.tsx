@@ -3,7 +3,6 @@
 import Header from "@/components/Header";
 import HeaderLink from "@/components/HeaderLink";
 import Image from "next/image";
-import {BsBucketFill} from "react-icons/bs";
 import {RxHamburgerMenu} from "react-icons/rx";
 import Input from "@/components/Input";
 import {useState, useEffect} from "react";

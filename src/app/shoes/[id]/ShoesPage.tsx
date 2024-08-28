@@ -2,7 +2,7 @@
 
 import Navigation from "@/components/Navigation";
 import Image from "next/image";
-import useLoadImage from "../../../../hooks/useLoadImage";
+import useLoadImage from "@/hooks/useLoadImage";
 import {IoIosCheckmarkCircle} from "react-icons/io";
 import {RxCross2} from "react-icons/rx";
 import ShoesDescription from "@/app/shoes/[id]/ShoesDescription";

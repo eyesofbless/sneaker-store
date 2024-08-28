@@ -1,8 +1,8 @@
-import {useSupabaseClient} from "@supabase/auth-helpers-react";
+import {createClient} from "../../supabase/client";
 
 const useLoadImage = (imagePath:any) => {
 
-    const supabaseClient = useSupabaseClient()
+    const supabaseClient = createClient()
     const {data: imageData} = supabaseClient
         .storage
         .from('shoes_images')

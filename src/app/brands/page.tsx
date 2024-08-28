@@ -1,6 +1,6 @@
 
 import Navigation from "@/components/Navigation";
-import {getAllBrands} from "../../../requests/getBrands";
+import {getAllBrands} from "@/requests/getBrands";
 import BrandsIndex from "@/app/brands/components/BrandsIndex";
 
 export default async function Brands() {

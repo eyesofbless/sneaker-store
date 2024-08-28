@@ -2,7 +2,7 @@ import type {Metadata} from "next";
 import {Open_Sans} from "next/font/google";
 import "./globals.css";
 import SupabaseProvider from "../../providers/SupabaseProvider";
-
+import {ReduxProvider} from "@/app/redux-provider";
 const inter = Open_Sans({subsets: ["latin"]});
 
 export const metadata: Metadata = {
@@ -14,9 +14,11 @@ export default function RootLayout({children,}: Readonly<{ children: React.React
     return (
         <html lang="en">
         <body className={inter.className}>
-        <SupabaseProvider>
-            {children}
-        </SupabaseProvider>
+            <SupabaseProvider>
+                <ReduxProvider>
+                    {children}
+                </ReduxProvider>
+            </SupabaseProvider>
         </body>
         </html>
     );
