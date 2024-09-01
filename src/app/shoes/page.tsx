@@ -5,6 +5,7 @@ import Filters from "@/app/shoes/components/Filters";
 import ShoesList from "@/app/shoes/components/ShoesList";
 import { getShoesByFilters } from "@/requests/getShoesByFilters";
 import FiltersSidebar from "@/app/shoes/components/FiltersSidebar";
+import {getSearchProducts} from "@/requests/getSearchProducts";
 
 
 
@@ -15,6 +16,7 @@ interface FilterProps {
         genders: string[];
         seasons: string[];
         selectedOption: string;
+        query:string
     };
 }
 
@@ -30,11 +32,16 @@ const Shoes = async ({ searchParams }: FilterProps) => {
         searchParams.selectedOption
     );
 
+    let foundProducts
+    if (searchParams?.query) {
+        foundProducts = await getSearchProducts(searchParams.query);
+    }
+
     brands = brands.filter((item: any, index: number) => brands.indexOf(item) === index);
 
     return (
         <div>
-            <Navigation />
+            <Navigation foundProducts={foundProducts}/>
             <div className='flex flex-col m-10 mt-[100px]'>
                 <p className='text-3xl font-bold sm:hidden'>ОБУВЬ</p>
                 <div className='flex justify-between mb-5 mt-5 items-center'>

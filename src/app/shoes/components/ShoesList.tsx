@@ -1,6 +1,7 @@
 'use client'
 import ShoesItem from "@/app/shoes/components/ShoesItem";
-import React from "react";
+import React, {useEffect} from "react";
+import {useBasketStore} from "@/stores/basket-store";
 
 interface ShoesListProps {
     models: any
@@ -8,6 +9,14 @@ interface ShoesListProps {
 
 const ShoesList: React.FC<ShoesListProps> = ({models}) => {
 
+    const {fetchBasketProducts}: any = useBasketStore()
+
+    useEffect(() => {
+        let fetchBasketProductsFunction = async () => {
+            await fetchBasketProducts()
+        }
+        fetchBasketProductsFunction()
+    }, []);
 
     return (
         <div className="

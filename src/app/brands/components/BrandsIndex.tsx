@@ -1,13 +1,24 @@
 'use client'
 
-import React, { useRef } from "react";
+import React, {useEffect, useRef} from "react";
 import Brand from "@/app/brands/components/Brand";
+import {useBasketStore} from "@/stores/basket-store";
 
 interface BrandsIndexProps {
     brands: string[]
 }
 
 const BrandsIndex: React.FC<BrandsIndexProps> = ({ brands }) => {
+
+    const {fetchBasketProducts}: any = useBasketStore()
+
+    useEffect(() => {
+        let fetchBasketProductsFunction = async () => {
+            await fetchBasketProducts()
+        }
+        fetchBasketProductsFunction()
+    }, []);
+
     const scrollToElement = (ref: React.RefObject<HTMLDivElement>) => {
         if (ref.current) {
             const offsetTop = ref.current.getBoundingClientRect().top + window.scrollY - 60; // 60px - высота вашей шапки

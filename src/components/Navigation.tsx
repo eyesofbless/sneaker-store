@@ -5,12 +5,17 @@ import HeaderLink from "@/components/HeaderLink";
 import Image from "next/image";
 import {RxHamburgerMenu} from "react-icons/rx";
 import Input from "@/components/Input";
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import Sidebar from "@/components/Sidebar";
 import BasketIcon from "@/components/BasketIcon";
+import {usePathname} from "next/navigation";
 
 
-const Navigation = () => {
+interface NavigationProps {
+    foundProducts?: any
+}
+
+const Navigation: React.FC<NavigationProps> = ({foundProducts}) => {
 
 
     const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +23,8 @@ const Navigation = () => {
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+
+    const pathname = usePathname();
 
     // Блокировка прокрутки при открытом сайдбаре
     useEffect(() => {
@@ -56,17 +63,22 @@ const Navigation = () => {
             </div>
 
             <div className="sm:block hidden">
-                <div className="flex gap-x-4">
-                    <Input/>
-                    <BasketIcon />
-                </div>
+                {pathname !== '/basket' &&
+                    <div className="flex gap-x-4">
+                        <Input foundProducts={foundProducts}/>
+                        <BasketIcon/>
+                    </div>}
             </div>
             <Sidebar isOpen={isOpen} setIsOpen={setIsOpen}/>
             {isOpen && <div className="fixed inset-0 bg-black opacity-50 z-40" onClick={() => setIsOpen(false)}></div>}
             <div className="flex items-center gap-x-4 sm:hidden">
                 <RxHamburgerMenu onClick={toggleMenu} className={'text-black cursor-pointer'} size={40}/>
-                <Input/>
-                <BasketIcon />
+                {pathname !== '/basket' &&
+                    <div>
+                        <Input foundProducts={foundProducts}/>
+                        <BasketIcon/>
+                    </div>
+                }
             </div>
         </Header>
     );

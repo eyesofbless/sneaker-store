@@ -29,6 +29,8 @@ const useUpdateProduct = () => {
             item.item.article === product.article && item.size === size
         );
 
+        
+
         // Если продукт уже есть в корзине, увеличиваем количество
         if (matchingProduct) {
             const { error } = await supabaseClient

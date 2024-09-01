@@ -1,7 +1,7 @@
 import {create} from "zustand";
 import {getBasketProducts} from "@/requests/getBasketProducts";
 
-export const useBasketStore = create((set, get) => ({
+export const useBasketStore = create((set) => ({
     basketProducts: [],
     loading: false,
     basketProductsSum: 0,
