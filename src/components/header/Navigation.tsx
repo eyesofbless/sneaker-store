@@ -1,13 +1,13 @@
 'use client'
 
-import Header from "@/components/Header";
-import HeaderLink from "@/components/HeaderLink";
+import Header from "@/components/header/Header";
+import HeaderLink from "@/components/header/HeaderLink";
 import Image from "next/image";
 import {RxHamburgerMenu} from "react-icons/rx";
-import Input from "@/components/Input";
-import React, {useState, useEffect} from "react";
-import Sidebar from "@/components/Sidebar";
-import BasketIcon from "@/components/BasketIcon";
+import Input from "@/components/header/Input";
+import React, {useState} from "react";
+import Sidebar from "@/components/header/Sidebar";
+import BasketIcon from "@/components/header/BasketIcon";
 import {usePathname} from "next/navigation";
 
 
@@ -15,8 +15,7 @@ interface NavigationProps {
     foundProducts?: any
 }
 
-const Navigation: React.FC<NavigationProps> = ({foundProducts}) => {
-
+const Navigation: React.FC<NavigationProps> = ({foundProducts=[]}) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -24,21 +23,10 @@ const Navigation: React.FC<NavigationProps> = ({foundProducts}) => {
         setIsOpen(!isOpen);
     };
 
+
     const pathname = usePathname();
 
-    // Блокировка прокрутки при открытом сайдбаре
-    useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
 
-        // Очистка эффекта при размонтировании компонента
-        return () => {
-            document.body.style.overflow = '';
-        };
-    }, [isOpen]);
 
     const stylesForLink =
         'hover:text-blue-600 transition text-[15px] text-black'
@@ -74,7 +62,7 @@ const Navigation: React.FC<NavigationProps> = ({foundProducts}) => {
             <div className="flex items-center gap-x-4 sm:hidden">
                 <RxHamburgerMenu onClick={toggleMenu} className={'text-black cursor-pointer'} size={40}/>
                 {pathname !== '/basket' &&
-                    <div>
+                    <div className="flex gap-x-4">
                         <Input foundProducts={foundProducts}/>
                         <BasketIcon/>
                     </div>

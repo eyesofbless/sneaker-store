@@ -1,4 +1,4 @@
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/header/Navigation";
 import OrderForm from "@/app/basket/components/OrderForm";
 import BasketProducts from "@/app/basket/components/BasketProducts";
 

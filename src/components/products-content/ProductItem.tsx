@@ -11,7 +11,7 @@ interface ShoesItemProps {
     id: number;
 }
 
-const ShoesItem: React.FC<ShoesItemProps> = ({ image_path, brand, model, price, id }) => {
+const ProductItem: React.FC<ShoesItemProps> = ({ image_path, brand, model, price, id }) => {
     const path = useLoadImage(image_path);
 
     return (
@@ -36,4 +36,4 @@ const ShoesItem: React.FC<ShoesItemProps> = ({ image_path, brand, model, price, 
     );
 };
 
-export default ShoesItem;
+export default ProductItem;

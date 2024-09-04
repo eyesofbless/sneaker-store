@@ -1,13 +1,15 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import qs from "query-string";
 
 const Filters = ({ currentFilters }:any) => {
     const [selectedOption, setSelectedOption] = useState('');
 
     const router = useRouter();
+
+    const pathname = usePathname();
 
 
     useEffect(() => {
@@ -32,7 +34,7 @@ const Filters = ({ currentFilters }:any) => {
         }
 
         const url = qs.stringifyUrl({
-            url: "/shoes",
+            url: pathname,
             query: query,
         });
 

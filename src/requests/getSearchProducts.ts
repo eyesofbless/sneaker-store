@@ -4,7 +4,9 @@ export const getSearchProducts = async (query: string) => {
 
     const tables = ['shoes', 'clothes', 'accessories'];
 
+
     const combineResults = async (table?: any) => {
+
         const supabase = createClient();
         const { data, error } = await supabase
             .from(table)
@@ -29,5 +31,5 @@ export const getSearchProducts = async (query: string) => {
     // Объединяем все результаты в один массив
     const newArr = results.flat();
 
-    return newArr.slice(0,3);
+    return newArr;
 };

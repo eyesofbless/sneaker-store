@@ -1,4 +1,4 @@
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/header/Navigation";
 import MainContent from "@/components/MainContent";
 import {getSearchProducts} from "@/requests/getSearchProducts";
 

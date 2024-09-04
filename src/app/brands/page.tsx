@@ -1,5 +1,5 @@
 
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/header/Navigation";
 import {getAllBrands} from "@/requests/getBrands";
 import BrandsIndex from "@/app/brands/components/BrandsIndex";
 import {getSearchProducts} from "@/requests/getSearchProducts";
@@ -26,7 +26,7 @@ export default async function Brands({
 
     return (
         <div>
-            <Navigation foundProducts={foundProducts}/>
+            <Navigation foundProducts={foundProducts} />
             <div
                 className='
                 flex

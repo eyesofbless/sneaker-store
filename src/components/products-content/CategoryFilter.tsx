@@ -2,7 +2,7 @@
 
 import { IoIosArrowDown } from "react-icons/io";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import qs from "query-string";
 
 export interface ShoesFilterProps {
@@ -10,7 +10,9 @@ export interface ShoesFilterProps {
     isVisible?: boolean;
 }
 
-const ShoesFilter: React.FC<ShoesFilterProps> = ({brands,isVisible}) => {
+const CategoryFilter: React.FC<ShoesFilterProps> = ({brands,isVisible}) => {
+
+    const pathname = usePathname()
     const router = useRouter();
 
     const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
@@ -42,7 +44,7 @@ const ShoesFilter: React.FC<ShoesFilterProps> = ({brands,isVisible}) => {
         }
 
         const url = qs.stringifyUrl({
-            url: "/shoes",
+            url: pathname,
             query: query,
         });
 
@@ -224,4 +226,4 @@ const ShoesFilter: React.FC<ShoesFilterProps> = ({brands,isVisible}) => {
     );
 }
 
-export default ShoesFilter;
+export default CategoryFilter;

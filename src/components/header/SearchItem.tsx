@@ -1,20 +1,20 @@
 import Image from "next/image";
-import React from "react";
+import React, {useEffect} from "react";
 import useLoadImage from "@/hooks/useLoadImage";
 import Link from "next/link";
 
-interface SearchResultsProps {
+interface SearchItemProps {
     product: any
 }
 
-const SearchResults: React.FC<SearchResultsProps> = ({product}) => {
+const SearchItem: React.FC<SearchItemProps> = ({product}) => {
 
     const path = useLoadImage(product.image_path)
 
     return (
         <Link href={`/shoes/${product.id}`}>
-            <div className="flex p-3 gap-2 pl-0">
-                <Image src={path} alt={''} width={80} height={80}/>
+            <div className="flex p-3 gap-2 pl-0 text-[13px]">
+                <Image src={path} alt={''} width={70} height={70}/>
                 <div className="flex flex-col justify-between">
                     <div className="flex gap-1">
                         <p>{product.brand}</p>
@@ -27,4 +27,4 @@ const SearchResults: React.FC<SearchResultsProps> = ({product}) => {
     )
 }
 
-export default SearchResults
+export default SearchItem

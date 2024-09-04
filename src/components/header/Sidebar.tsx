@@ -1,5 +1,5 @@
 import React from "react";
-import HeaderLink from "@/components/HeaderLink";
+import HeaderLink from "@/components/header/HeaderLink";
 import { RxCross1 } from "react-icons/rx";
 
 interface SidebarProps {

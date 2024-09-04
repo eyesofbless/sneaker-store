@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from "react";
-import ShoesFilter, { ShoesFilterProps } from "@/app/shoes/components/ShoesFilter";
+import CategoryFilter, { ShoesFilterProps } from "@/components/products-content/CategoryFilter";
 
 const FiltersSidebar: React.FC<ShoesFilterProps> = ({ brands }) => {
     const [isVisible, setIsVisible] = useState(false);
@@ -56,7 +56,7 @@ const FiltersSidebar: React.FC<ShoesFilterProps> = ({ brands }) => {
             transition-transform duration-300 ease-in-out z-50`}>
                 <p className='p-2 border-blue-400'>Фильтры</p>
                 <div className='w-full border-b-4 border-gray-200'></div>
-                <ShoesFilter brands={brands} isVisible={isVisible}/>
+                <CategoryFilter brands={brands} isVisible={isVisible}/>
                 <div className='w-full border-b-4 border-gray-200'></div>
                 <button onClick={() => toggleFilters()}>
                     Посмотреть

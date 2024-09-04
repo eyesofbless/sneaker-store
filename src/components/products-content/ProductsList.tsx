@@ -1,5 +1,5 @@
 'use client'
-import ShoesItem from "@/app/shoes/components/ShoesItem";
+import ProductItem from "@/components/products-content/ProductItem";
 import React, {useEffect} from "react";
 import {useBasketStore} from "@/stores/basket-store";
 
@@ -7,7 +7,7 @@ interface ShoesListProps {
     models: any
 }
 
-const ShoesList: React.FC<ShoesListProps> = ({models}) => {
+const ProductsList: React.FC<ShoesListProps> = ({models}) => {
 
     const {fetchBasketProducts}: any = useBasketStore()
 
@@ -27,7 +27,7 @@ const ShoesList: React.FC<ShoesListProps> = ({models}) => {
         lg:grid-cols-4
         gap-[10px]">
             {models.map((sneakers: any) => (
-                <ShoesItem
+                <ProductItem
                     id={sneakers.id}
                     key={sneakers.id}
                     image_path={sneakers.image_path}
@@ -40,4 +40,4 @@ const ShoesList: React.FC<ShoesListProps> = ({models}) => {
     );
 };
 
-export default ShoesList;
+export default ProductsList;

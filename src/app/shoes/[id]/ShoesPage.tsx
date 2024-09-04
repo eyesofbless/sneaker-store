@@ -1,6 +1,6 @@
 'use client'
 
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/header/Navigation";
 import Image from "next/image";
 import useLoadImage from "@/hooks/useLoadImage";
 import {IoIosCheckmarkCircle} from "react-icons/io";
@@ -10,7 +10,6 @@ import AddButton from "@/app/shoes/[id]/AddButton";
 import {useState} from "react";
 
 const ShoesPage = ({shoes}: any) => {
-
 
     const path = useLoadImage(shoes.image_path);
 
@@ -32,7 +31,6 @@ const ShoesPage = ({shoes}: any) => {
 
     return (
         <div>
-            <Navigation/>
             <div className="
             h-screen
             flex
