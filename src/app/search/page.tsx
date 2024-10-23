@@ -1,13 +1,13 @@
 import {getSearchProducts} from "@/requests/getSearchProducts";
 import SearchResults from "@/app/search/components/SearchResults";
-import {getAllBrands, getBrands} from "@/requests/getBrands";
 import {getProductsByFilters} from "@/requests/getProductsByFilters";
 import {SearchParams} from "../../../types";
+import {getFilters} from "@/requests/getFilters";
 
 const Search = async ({searchParams}: SearchParams) => {
 
     let shoesModels = await getProductsByFilters(
-        {searchParams}
+        searchParams
     );
 
     let foundProducts
@@ -16,18 +16,13 @@ const Search = async ({searchParams}: SearchParams) => {
     }
 
 
-
-    let brands = await getAllBrands();
-    brands = brands.filter((item: any, index: number) => brands.indexOf(item) === index);
-
-
     return (
         <div>
             <SearchResults
                 foundProducts={foundProducts}
-                brands={brands}
                 searchParams={searchParams}
-                models={shoesModels}/>
+                models={shoesModels}
+                />
         </div>
     )
 }

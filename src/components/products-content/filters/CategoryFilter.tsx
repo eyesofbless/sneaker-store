@@ -1,23 +1,23 @@
 'use client';
 
-import { IoIosArrowDown } from "react-icons/io";
-import React, { useEffect, useState } from "react";
+import {IoIosArrowDown} from "react-icons/io";
+import React, {useEffect, useState} from "react";
 import {usePathname, useRouter} from "next/navigation";
 import qs from "query-string";
 
 export interface ShoesFilterProps {
-    brands: { 'brand': string }[];
+    filters: any;
     isVisible?: boolean;
 }
 
-const CategoryFilter: React.FC<ShoesFilterProps> = ({brands,isVisible}) => {
+const CategoryFilter: React.FC<ShoesFilterProps> = ({filters, isVisible}) => {
 
     const pathname = usePathname()
     const router = useRouter();
 
-    const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
     const [checkedStates, setCheckedStates] = useState<Record<string, boolean>>({});
 
+    const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
     const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
     const [selectedSeasons, setSelectedSeasons] = useState<string[]>([]);
     const [selectedGenders, setSelectedGenders] = useState<string[]>([]);
@@ -59,7 +59,7 @@ const CategoryFilter: React.FC<ShoesFilterProps> = ({brands,isVisible}) => {
     };
 
     const handleBrandChange = (brand: string, checked: boolean) => {
-        setCheckedStates(prev => ({ ...prev, [brand]: checked }));
+        setCheckedStates(prev => ({...prev, [brand]: checked}));
         setSelectedBrands(prev =>
             checked ? [...prev, brand] : prev.filter(b => b !== brand)
         );
@@ -83,6 +83,8 @@ const CategoryFilter: React.FC<ShoesFilterProps> = ({brands,isVisible}) => {
         );
     };
 
+
+
     const styleForShoesFilter = 'hover:text-blue-600 transition cursor-pointer';
 
     return (
@@ -90,46 +92,30 @@ const CategoryFilter: React.FC<ShoesFilterProps> = ({brands,isVisible}) => {
         h-[calc(100vh-100px)] 
         pr-2 
         overflow-y-auto 
-        ${isVisible ? 'block w-full': 'sm:block hidden w-[150px]'}`}>
+        ${isVisible ? 'block w-full' : 'sm:block hidden w-[150px]'}`}>
             <div className={`${!isVisible && 'border-t-2 border-[#e0dedc]'}`}>
                 <div className='flex flex-row justify-between'>
                     <p className='text-[#929292] mb-4'>Обувь</p>
                     <IoIosArrowDown
                         onClick={() => toggleOpen(0)}
                         className='mt-[3px] cursor-pointer text-[#e0dedc]'
-                        size={25} />
+                        size={25}/>
                 </div>
                 {open[0] &&
                     <ul className='flex flex-col gap-2 mb-5'>
-                        <li className='flex'>
-                            <input
-                                className="mr-3 cursor-pointer"
-                                type='checkbox'
-                                checked={selectedTypes.includes('sneakers')}
-                                onChange={(e) => handleTypeChange('sneakers', e.target.checked)}
-                            />
-                            <p>Кроссовки</p>
-                        </li>
-                        <li className='flex'>
-                            <input
-                                className="mr-3 cursor-pointer"
-                                type='checkbox'
-                                checked={selectedTypes.includes('boots')}
-                                onChange={(e) => handleTypeChange('boots', e.target.checked)}
-                            />
-                            <p>Ботинки</p>
-                        </li>
-                        <li className='flex'>
-                            <input
-                                className="mr-3 cursor-pointer"
-                                type='checkbox'
-                                checked={selectedTypes.includes('gumshoes')}
-                                onChange={(e) => handleTypeChange('gumshoes', e.target.checked)}
-                            />
-                            <p>Кеды</p>
-                        </li>
-                    </ul>
-                }
+                        {filters.types?.map((item:any) =>
+                            <li className="flex" key={item}>
+                                <input
+                                    className="mr-3 cursor-pointer"
+                                    type='checkbox'
+                                    checked={selectedTypes.includes(item)}
+                                    onChange={(e) => handleTypeChange(item, e.target.checked)}
+                                />
+                                <p>{item}</p>
+                            </li>
+                        )}
+                    </ul>}
+
             </div>
             <div className='border-t-2 border-[#e0dedc]'>
                 <div className='flex flex-row justify-between'>
@@ -137,18 +123,18 @@ const CategoryFilter: React.FC<ShoesFilterProps> = ({brands,isVisible}) => {
                     <IoIosArrowDown
                         onClick={() => toggleOpen(1)}
                         className='mt-[3px] cursor-pointer text-[#e0dedc]'
-                        size={25} />
+                        size={25}/>
                 </div>
                 {open[1] && <ul className="flex flex-col gap-2 mb-5">
-                    {brands.map((item) =>
-                        <li className="flex" key={item.brand}>
+                    {filters.brands?.map((item:any) =>
+                        <li className="flex" key={item}>
                             <input
                                 className="mr-3 cursor-pointer"
                                 type='checkbox'
-                                checked={checkedStates[item.brand] || false}
-                                onChange={(e) => handleBrandChange(item.brand, e.target.checked)}
+                                checked={checkedStates[item] || false}
+                                onChange={(e) => handleBrandChange(item, e.target.checked)}
                             />
-                            <p>{item.brand}</p>
+                            <p>{item}</p>
                         </li>
                     )}
                 </ul>}
@@ -159,37 +145,21 @@ const CategoryFilter: React.FC<ShoesFilterProps> = ({brands,isVisible}) => {
                     <IoIosArrowDown
                         onClick={() => toggleOpen(2)}
                         className='mt-[3px] cursor-pointer text-[#e0dedc]'
-                        size={25} />
+                        size={25}/>
                 </div>
                 {open[2] &&
                     <ul className="flex flex-col gap-2 mb-5">
-                        <li className={styleForShoesFilter}>
-                            <input
-                                className="mr-3 cursor-pointer"
-                                type='checkbox'
-                                checked={selectedSeasons.includes('summer')}
-                                onChange={(e) => handleSeasonChange('summer', e.target.checked)}
-                            />
-                            Лето
-                        </li>
-                        <li className={styleForShoesFilter}>
-                            <input
-                                className="mr-3 cursor-pointer"
-                                type='checkbox'
-                                checked={selectedSeasons.includes('winter')}
-                                onChange={(e) => handleSeasonChange('winter', e.target.checked)}
-                            />
-                            Зима
-                        </li>
-                        <li className={styleForShoesFilter}>
-                            <input
-                                className="mr-3 cursor-pointer"
-                                type='checkbox'
-                                checked={selectedSeasons.includes('autumn')}
-                                onChange={(e) => handleSeasonChange('autumn', e.target.checked)}
-                            />
-                            Осень
-                        </li>
+                        {filters.seasons?.map((item:any) =>
+                            <li className="flex" key={item}>
+                                <input
+                                    className="mr-3 cursor-pointer"
+                                    type='checkbox'
+                                    checked={selectedSeasons.includes(item)}
+                                    onChange={(e) => handleSeasonChange(item, e.target.checked)}
+                                />
+                                <p>{item}</p>
+                            </li>
+                        )}
                     </ul>}
             </div>
             <div className='border-t-2 border-[#e0dedc]'>
@@ -198,28 +168,21 @@ const CategoryFilter: React.FC<ShoesFilterProps> = ({brands,isVisible}) => {
                     <IoIosArrowDown
                         onClick={() => toggleOpen(3)}
                         className='mt-[3px] cursor-pointer text-[#e0dedc]'
-                        size={25} />
+                        size={25}/>
                 </div>
                 {open[3] &&
                     <ul className="flex flex-col gap-2 mb-5">
-                        <li className='flex'>
-                            <input
-                                className="mr-3 cursor-pointer"
-                                type='checkbox'
-                                checked={selectedGenders.includes('man')}
-                                onChange={(e) => handleGenderChange('man', e.target.checked)}
-                            />
-                            <p>Мужское</p>
-                        </li>
-                        <li className='flex'>
-                            <input
-                                className="mr-3 cursor-pointer"
-                                type='checkbox'
-                                checked={selectedGenders.includes('woman')}
-                                onChange={(e) => handleGenderChange('woman', e.target.checked)}
-                            />
-                            <p>Женское</p>
-                        </li>
+                        {filters.genders?.map((item:any) =>
+                            <li className="flex" key={item}>
+                                <input
+                                    className="mr-3 cursor-pointer"
+                                    type='checkbox'
+                                    checked={selectedGenders.includes(item)}
+                                    onChange={(e) => handleGenderChange(item, e.target.checked)}
+                                />
+                                <p>{item}</p>
+                            </li>
+                        )}
                     </ul>}
             </div>
         </div>

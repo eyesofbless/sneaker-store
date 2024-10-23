@@ -26,8 +26,16 @@ const useUpdateProduct = () => {
 
         // Ищем продукт с таким же артикулом и размером
         const matchingProduct = basketProducts.find((item: any) =>
-            item.item.article === product.article && item.size === size
+            item.item.article == product.article
+            &&
+            item.size == size
+            &&
+            item.session_id == sessionId
         );
+
+        console.log(basketProducts)
+        console.log(product)
+        console.log(sessionId)
 
         
 
@@ -36,7 +44,8 @@ const useUpdateProduct = () => {
             const { error } = await supabaseClient
                 .from('baskets')
                 .update({ size: updatedSize })
-                .eq('id', matchingProduct.id);
+                .eq('item', JSON.stringify(product))
+                .eq('id', matchingProduct.id)
 
             if (error) {
                 console.error('Ошибка при обновлении количества:', error.message);

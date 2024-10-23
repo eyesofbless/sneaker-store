@@ -10,8 +10,9 @@ export const getBrands = async (items:string) => {
         console.log(error)
     }
 
-
-    return (data as any) || []
+    if (data) {
+        return (data.filter((item: any, index: number) => data.indexOf(item) === index) as any) || []
+    }
 }
 
 export const getAllBrands = async () => {

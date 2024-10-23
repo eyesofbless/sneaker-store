@@ -13,7 +13,7 @@ export const getBasketProducts = async () => {
     const supabase = createClient()
     const {data,error} = await supabase
         .from('baskets')
-        .select('id,item,size,count')
+        .select('id,item,size,count,session_id')
         .eq('session_id',sessionId)
     if (error) {
         console.log(error)

@@ -4,6 +4,7 @@ import {getSearchProducts} from "@/requests/getSearchProducts";
 import {SearchParams} from "../../../types"
 import React from "react";
 import ProductsLayout from "@/components/ProductsLayout";
+import {getFilters} from "@/requests/getFilters";
 
 
 
@@ -14,7 +15,7 @@ const Shoes:React.FC<SearchParams> = async ({searchParams}) => {
 
 
     let shoesModels = await getProductsByFilters(
-        {searchParams}
+        searchParams,'shoes'
     );
 
     let foundProducts
@@ -22,12 +23,13 @@ const Shoes:React.FC<SearchParams> = async ({searchParams}) => {
         foundProducts = await getSearchProducts(searchParams.query);
     }
 
-    brands = brands.filter((item: any, index: number) => brands.indexOf(item) === index);
+    let filters = await getFilters('shoes')
 
     return (
         <div>
             <ProductsLayout foundProducts={foundProducts}
                             brands={brands}
+                            filters={filters}
                             searchParams={searchParams}
                             models={shoesModels}/>
         </div>

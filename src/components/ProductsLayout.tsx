@@ -1,18 +1,20 @@
 'use client'
 
 import Navigation from "@/components/header/Navigation";
-import FiltersSidebar from "@/components/products-content/FiltersSidebar";
-import Filters from "@/components/products-content/Filters";
-import CategoryFilter from "@/components/products-content/CategoryFilter";
+import FiltersSidebar from "@/components/products-content/filters/FiltersSidebar";
+import Filters from "@/components/products-content/filters/Filters";
+import CategoryFilter from "@/components/products-content/filters/CategoryFilter";
 import ProductsList from "@/components/products-content/ProductsList";
 import {usePathname} from "next/navigation";
 import {useSearchStore} from "@/stores/search-store";
 
 
-const ProductsLayout = ({foundProducts, brands, searchParams, models}: any) => {
+const ProductsLayout = ({foundProducts, searchParams, models,filters}: any) => {
 
     const {query}:any = useSearchStore()
     const pathname = usePathname();
+
+    console.log(filters)
 
     return (
         <div>
@@ -31,12 +33,12 @@ const ProductsLayout = ({foundProducts, brands, searchParams, models}: any) => {
                     <p className='text-3xl font-bold sm:block hidden'>
                         {pathname==='/search'?`ТОВАРЫ ПО ЗАПРОСУ "${query.toUpperCase()}"`:'ОБУВЬ'}
                     </p>
-                    <FiltersSidebar brands={brands}/>
+                    <FiltersSidebar filters={filters}/>
                     <Filters currentFilters={searchParams}/>
                 </div>
                 <div className='flex justify-between items-start'>
                     <div className='sticky top-[100px]'>
-                        <CategoryFilter brands={brands}/>
+                        <CategoryFilter filters={filters} />
                     </div>
                     <div className='sm:pl-3'>
                         <ProductsList models={models}/>
