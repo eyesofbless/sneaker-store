@@ -13,7 +13,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, size, count }) => {
-    const path = useLoadImage(product.image_path);
+    const path = useLoadImage(product.image_path,product.bucket,true);
     const addProduct = useAddProduct();
     const removeProduct = useDeleteProduct();
     const updateProduct = useUpdateProduct();

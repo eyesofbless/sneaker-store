@@ -3,11 +3,11 @@ import ProductItem from "@/components/products-content/ProductItem";
 import React, {useEffect} from "react";
 import {useBasketStore} from "@/stores/basket-store";
 
-interface ShoesListProps {
+interface ProductsListProps {
     models: any
 }
 
-const ProductsList: React.FC<ShoesListProps> = ({models}) => {
+const ProductsList: React.FC<ProductsListProps> = ({models}) => {
 
     const {fetchBasketProducts}: any = useBasketStore()
 
@@ -23,8 +23,8 @@ const ProductsList: React.FC<ShoesListProps> = ({models}) => {
         grid
         grid-cols-2
         sm:grid-cols-2
-        md:grid-cols-3
-        lg:grid-cols-4
+        md:grid-cols-4
+        lg:grid-cols-5
         gap-[10px]">
             {models.map((sneakers: any) => (
                 <ProductItem
@@ -34,6 +34,7 @@ const ProductsList: React.FC<ShoesListProps> = ({models}) => {
                     brand={sneakers.brand}
                     model={sneakers.model}
                     price={sneakers.price}
+                    bucket={sneakers.bucket}
                 />
             ))}
         </div>

@@ -7,7 +7,7 @@ interface shoesDescriptionProps {
     gender: string,
 }
 
-const shoesDescription: React.FC<shoesDescriptionProps> = ({color, country, compound, gender}) => {
+const ProductDescription: React.FC<shoesDescriptionProps> = ({color, country, compound, gender}) => {
     return (
         <div className="mt-5">
             <p>Описание</p>
@@ -24,9 +24,7 @@ const shoesDescription: React.FC<shoesDescriptionProps> = ({color, country, comp
         rounded-lg
         '>
                 {gender && <p>
-                    Пол: {gender === 'man' && 'Мужское'}
-                    {gender === 'woman' && 'Женское'}
-                    {gender === 'unisex' && 'Унисекс'}
+                    Пол: {gender}
                 </p>}
                 {color && <p>
                     Цвета: {color}
@@ -42,4 +40,4 @@ const shoesDescription: React.FC<shoesDescriptionProps> = ({color, country, comp
     )
 }
 
-export default shoesDescription
+export default ProductDescription

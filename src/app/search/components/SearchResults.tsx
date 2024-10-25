@@ -14,7 +14,8 @@ const SearchResults = ({ foundProducts, searchParams, models }: any) => {
 
     const [filters, setFilters] = useState({
         brands: Array.from(new Set(filteredProducts.map((item: any) => item.brand))),
-        types: Array.from(new Set(filteredProducts.map((item: any) => item.type))),
+        seasons: Array.from(new Set(filteredProducts.map((item: any) => item.season))),
+        genders: Array.from(new Set(filteredProducts.map((item: any) => item.gender))),
         colors: Array.from(new Set(filteredProducts.map((item: any) => item.color)))
         // можно добавить другие фильтры
     });
@@ -26,7 +27,6 @@ const SearchResults = ({ foundProducts, searchParams, models }: any) => {
             brands: Array.from(new Set(filteredProducts.map((item: any) => item.brand))),
             seasons: Array.from(new Set(filteredProducts.map((item: any) => item.season))),
             genders: Array.from(new Set(filteredProducts.map((item: any) => item.gender))),
-            types: Array.from(new Set(filteredProducts.map((item: any) => item.type))),
             colors: Array.from(new Set(filteredProducts.map((item: any) => item.color)))
         };
         setFilters(updatedFilters);
@@ -39,7 +39,7 @@ const SearchResults = ({ foundProducts, searchParams, models }: any) => {
             foundProducts={foundProducts}
             searchParams={searchParams}
             models={filteredProducts}
-            filters={filters} // Передаем отфильтрованные фильтры
+            filters={filters}
         />
     );
 };

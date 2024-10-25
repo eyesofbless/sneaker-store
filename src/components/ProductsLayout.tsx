@@ -3,7 +3,7 @@
 import Navigation from "@/components/header/Navigation";
 import FiltersSidebar from "@/components/products-content/filters/FiltersSidebar";
 import Filters from "@/components/products-content/filters/Filters";
-import CategoryFilter from "@/components/products-content/filters/CategoryFilter";
+import CategoryFilters from "@/components/products-content/filters/CategoryFilters";
 import ProductsList from "@/components/products-content/ProductsList";
 import {usePathname} from "next/navigation";
 import {useSearchStore} from "@/stores/search-store";
@@ -14,7 +14,19 @@ const ProductsLayout = ({foundProducts, searchParams, models,filters}: any) => {
     const {query}:any = useSearchStore()
     const pathname = usePathname();
 
-    console.log(filters)
+    let title = ''
+
+    switch (pathname) {
+        case '/shoes':
+            title = 'ОБУВЬ'
+            break
+        case '/clothes':
+            title = 'ОДЕЖДА'
+            break
+        default:
+            title = 'АКСЕССУАРЫ'
+    }
+
 
     return (
         <div>
@@ -27,18 +39,18 @@ const ProductsLayout = ({foundProducts, searchParams, models,filters}: any) => {
                 :
                 <div className='flex flex-col m-10 mt-[100px]'>
                 <p className='text-3xl font-bold sm:hidden'>
-                    {pathname==='/search'?`ТОВАРЫ ПО ЗАПРОСУ "${query.toUpperCase()}"`:'ОБУВЬ'}
+                    {pathname==='/search'?`ТОВАРЫ ПО ЗАПРОСУ "${query.toUpperCase()}"`:title}
                 </p>
                 <div className='flex justify-between mb-5 mt-5 items-center'>
                     <p className='text-3xl font-bold sm:block hidden'>
-                        {pathname==='/search'?`ТОВАРЫ ПО ЗАПРОСУ "${query.toUpperCase()}"`:'ОБУВЬ'}
+                        {pathname==='/search'?`ТОВАРЫ ПО ЗАПРОСУ "${query.toUpperCase()}"`:title}
                     </p>
                     <FiltersSidebar filters={filters}/>
                     <Filters currentFilters={searchParams}/>
                 </div>
                 <div className='flex justify-between items-start'>
                     <div className='sticky top-[100px]'>
-                        <CategoryFilter filters={filters} />
+                        <CategoryFilters filters={filters} />
                     </div>
                     <div className='sm:pl-3'>
                         <ProductsList models={models}/>

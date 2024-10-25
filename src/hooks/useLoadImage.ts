@@ -1,12 +1,12 @@
 import {createClient} from "../../supabase/client";
 
-const useLoadImage = (imagePath:any) => {
+const useLoadImage = (imagePath:string,bucket:string,smallSize:boolean) => {
 
     const supabaseClient = createClient()
     const {data: imageData} = supabaseClient
         .storage
-        .from('shoes_images')
-        .getPublicUrl(imagePath+'.jpg')
+        .from(bucket)
+        .getPublicUrl(imagePath+'/'+(smallSize?imagePath:imagePath+'_big')+'.jpg')
     return imageData.publicUrl
 }
 

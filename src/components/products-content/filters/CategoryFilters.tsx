@@ -5,12 +5,12 @@ import React, {useEffect, useState} from "react";
 import {usePathname, useRouter} from "next/navigation";
 import qs from "query-string";
 
-export interface ShoesFilterProps {
+export interface ShoesFiltersProps {
     filters: any;
     isVisible?: boolean;
 }
 
-const CategoryFilter: React.FC<ShoesFilterProps> = ({filters, isVisible}) => {
+const CategoryFilters: React.FC<ShoesFiltersProps> = ({filters, isVisible}) => {
 
     const pathname = usePathname()
     const router = useRouter();
@@ -84,8 +84,6 @@ const CategoryFilter: React.FC<ShoesFilterProps> = ({filters, isVisible}) => {
     };
 
 
-
-    const styleForShoesFilter = 'hover:text-blue-600 transition cursor-pointer';
 
     return (
         <div className={`
@@ -189,4 +187,4 @@ const CategoryFilter: React.FC<ShoesFilterProps> = ({filters, isVisible}) => {
     );
 }
 
-export default CategoryFilter;
+export default CategoryFilters;

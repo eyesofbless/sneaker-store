@@ -20,13 +20,13 @@ const Page = async ({ params,searchParams }: ParamsProps) => {
         foundProducts = await getSearchProducts(searchParams.query);
     }
 
-    // Получаем данные об одежде по id
-    const shoes = await getProductsById(params.id,'shoes');
+    // Получаем данные об обуви по id
+    const clothes = await getProductsById(params.id,'clothes');
 
     return (
         <div>
             <Navigation foundProducts={foundProducts}  />
-            <ProductPage product={shoes[0]} />
+            <ProductPage product={clothes[0]} />
         </div>
     );
 };

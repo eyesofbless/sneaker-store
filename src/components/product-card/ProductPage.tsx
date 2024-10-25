@@ -1,32 +1,18 @@
 'use client'
 
-import Navigation from "@/components/header/Navigation";
 import Image from "next/image";
 import useLoadImage from "@/hooks/useLoadImage";
 import {IoIosCheckmarkCircle} from "react-icons/io";
 import {RxCross2} from "react-icons/rx";
-import ShoesDescription from "@/app/shoes/[id]/ShoesDescription";
-import AddButton from "@/app/shoes/[id]/AddButton";
+import ProductDescription from "@/components/product-card/ProductDescription";
+import AddButton from "@/components/product-card/AddButton";
 import {useState} from "react";
 
-const ShoesPage = ({shoes}: any) => {
+const ProductPage = ({product}: any) => {
 
-    const path = useLoadImage(shoes.image_path);
+    const path = useLoadImage(product.image_path,product.bucket,false);
 
-    const [size, setSize] = useState(shoes.sizes[0])
-
-
-    let shoesType;
-    switch (shoes.type) {
-        case 'gumshoes':
-            shoesType = 'кеды';
-            break;
-        case 'sneakers':
-            shoesType = 'кроссовки';
-            break;
-        case 'boots':
-            shoesType = 'ботинки';
-    }
+    const [size, setSize] = useState(product.sizes[0])
 
 
     return (
@@ -49,7 +35,7 @@ const ShoesPage = ({shoes}: any) => {
                         className='
                         rounded-lg
                         ml-0'
-                        alt={'Shoes image'}
+                        alt={'Product image'}
                         width={500} height={500}/>
                     <div className='
                     flex
@@ -66,12 +52,12 @@ const ShoesPage = ({shoes}: any) => {
                                 text-[31px]
                                 gap-2
                                 mb-[30px]'>
-                                    <p>{shoes.gender === 'man' ? 'Мужские' : 'Женские'}</p>
-                                    <p>{shoesType}</p>
-                                    <p>{shoes.brand}</p>
-                                    <p className='block w-full'>{shoes.model}</p>
+                                    <p>{product.gender}</p>
+                                    <p>{product.type}</p>
+                                    <p>{product.brand}</p>
+                                    <p className='block w-full'>{product.model}</p>
                                 </div>
-                                <p className="text-[27px]">{shoes.price} ₽</p>
+                                <p className="text-[27px]">{product.price} ₽</p>
                                 <div className='
                                 flex
                                 items-center
@@ -83,11 +69,11 @@ const ShoesPage = ({shoes}: any) => {
                                 mt-5
                                 p-2
                                 rounded-lg'>
-                                    {shoes.in_stock ?
+                                    {product.in_stock ?
                                         <IoIosCheckmarkCircle color={'#1E88E5'}/>
                                         :
                                         <RxCross2 color={'red'}/>}
-                                    {shoes.in_stock ? 'В наличии' : 'Нет в наличии'}
+                                    {product.in_stock ? 'В наличии' : 'Нет в наличии'}
                                 </div>
                             </div>
                             <div className='mt-10'>
@@ -98,7 +84,7 @@ const ShoesPage = ({shoes}: any) => {
                             gap-1
                             mb-5
                             mt-2
-                            ">{shoes.sizes.map((item: number, index: number) =>
+                            ">{product.sizes.map((item: number, index: number) =>
                                     <button
                                         onClick={() => setSize(item)}
                                         key={index}
@@ -116,17 +102,17 @@ const ShoesPage = ({shoes}: any) => {
                                 )}
                                 </div>
                                 <AddButton
-                                    product={shoes}
+                                    product={product}
                                     size={size}
                                 />
                             </div>
                         </div>
 
-                        <ShoesDescription
-                            color={shoes.color}
-                            country={shoes.country}
-                            compound={shoes.compound}
-                            gender={shoes.gender}
+                        <ProductDescription
+                            color={product.color}
+                            country={product.country}
+                            compound={product.compound}
+                            gender={product.gender}
                         />
                     </div>
                 </div>
@@ -135,4 +121,4 @@ const ShoesPage = ({shoes}: any) => {
     );
 };
 
-export default ShoesPage;
+export default ProductPage;

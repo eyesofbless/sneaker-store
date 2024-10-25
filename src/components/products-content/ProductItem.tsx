@@ -2,6 +2,7 @@ import useLoadImage from "@/hooks/useLoadImage";
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
+import {usePathname} from "next/navigation";
 
 interface ShoesItemProps {
     image_path: string;
@@ -9,14 +10,15 @@ interface ShoesItemProps {
     model: string;
     price: number;
     id: number;
+    bucket:string
 }
 
-const ProductItem: React.FC<ShoesItemProps> = ({ image_path, brand, model, price, id }) => {
-    const path = useLoadImage(image_path);
-
+const ProductItem: React.FC<ShoesItemProps> = ({ image_path, brand, model, price, id, bucket }) => {
+    const path = useLoadImage(image_path,bucket,true);
+    const pathname = usePathname()
     return (
         <div>
-            <Link href={`/shoes/${id}`}>
+            <Link href={`${pathname}/${id}`}>
                 <Image
                     src={path}
                     alt={'Image'}

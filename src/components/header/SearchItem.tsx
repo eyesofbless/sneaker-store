@@ -9,7 +9,7 @@ interface SearchItemProps {
 
 const SearchItem: React.FC<SearchItemProps> = ({product}) => {
 
-    const path = useLoadImage(product.image_path)
+    const path = useLoadImage(product.image_path,product.bucket,true)
 
     return (
         <Link href={`/shoes/${product.id}`}>

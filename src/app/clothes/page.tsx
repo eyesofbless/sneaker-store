@@ -13,7 +13,7 @@ const Shoes:React.FC<SearchParams> = async ({searchParams}) => {
 
 
     let shoesModels = await getProductsByFilters(
-        searchParams,'shoes'
+        searchParams,'clothes'
     );
 
     let foundProducts
@@ -21,7 +21,7 @@ const Shoes:React.FC<SearchParams> = async ({searchParams}) => {
         foundProducts = await getSearchProducts(searchParams.query);
     }
 
-    let filters = await getFilters('shoes')
+    let filters = await getFilters('clothes')
 
     return (
         <div>

@@ -3,10 +3,10 @@ import {createClient} from "../../supabase/server";
 
 
 
-export const getShoesById = async (id?:number) => {
+export const getProductsById = async (id?:number,table?:any) => {
     const supabase = createClient()
     const {data,error} = await supabase
-        .from('shoes')
+        .from(table)
         .select('*')
         .eq('id',id)
     if (error) {
