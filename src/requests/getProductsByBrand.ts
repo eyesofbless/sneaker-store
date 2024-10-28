@@ -1,6 +1,6 @@
 import { createClient } from "../../supabase/server";
 
-export const getProductsById = async (id?: string, table?: string) => {
+export const getProductsByBrand = async (brand?: string, table?: string): Promise<any[]> => {
     const supabase = createClient();
 
     // Определяем таблицы для запроса
@@ -11,7 +11,7 @@ export const getProductsById = async (id?: string, table?: string) => {
         const { data, error } = await supabase
             .from(table)
             .select('*')
-            .eq('image_path', id);
+            .eq('brand', brand);
 
         if (error) {
             console.error(`Error fetching products from ${table}:`, error);
@@ -22,7 +22,7 @@ export const getProductsById = async (id?: string, table?: string) => {
     };
 
     // Если бренд не указан, возвращаем пустой массив
-    if (!id) {
+    if (!brand) {
         console.warn("No brand specified, returning empty array.");
         return [];
     }

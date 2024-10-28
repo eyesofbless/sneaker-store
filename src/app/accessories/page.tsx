@@ -1,4 +1,3 @@
-import { getBrands } from "@/requests/getBrands";
 import { getProductsByFilters } from "@/requests/getProductsByFilters";
 import {getSearchProducts} from "@/requests/getSearchProducts";
 import {SearchParams} from "../../../types"
@@ -9,11 +8,11 @@ import {getFilters} from "@/requests/getFilters";
 
 
 
-const Clothes:React.FC<SearchParams> = async ({searchParams}) => {
+const Accessories:React.FC<SearchParams> = async ({searchParams}) => {
 
 
     let shoesModels = await getProductsByFilters(
-        searchParams,'clothes'
+        searchParams,'accessories'
     );
 
     let foundProducts
@@ -21,7 +20,7 @@ const Clothes:React.FC<SearchParams> = async ({searchParams}) => {
         foundProducts = await getSearchProducts(searchParams.query);
     }
 
-    let filters = await getFilters('clothes')
+    let filters = await getFilters('accessories')
 
     return (
         <div>
@@ -33,4 +32,4 @@ const Clothes:React.FC<SearchParams> = async ({searchParams}) => {
     );
 };
 
-export default Clothes;
+export default Accessories;

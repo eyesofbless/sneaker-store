@@ -26,7 +26,7 @@ const ProductsList: React.FC<ProductsListProps> = ({models}) => {
         md:grid-cols-4
         lg:grid-cols-5
         gap-[10px]">
-            {models.map((sneakers: any) => (
+            {models?.map((sneakers: any) => (
                 <ProductItem
                     id={sneakers.id}
                     key={sneakers.id}

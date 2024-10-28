@@ -1,6 +1,7 @@
 'use client'
 
 import React from "react";
+import Link from "next/link";
 
 interface BrandProps {
     letter: string
@@ -9,6 +10,7 @@ interface BrandProps {
 
 
 const Brand: React.FC<BrandProps> = async ({letter, brands}) => {
+
 
     return (
         <div className='flex flex-col align-middle'>
@@ -26,13 +28,20 @@ const Brand: React.FC<BrandProps> = async ({letter, brands}) => {
             </div>
 
             <div>{brands.map((item: any,index) =>
-                <div
-                    key={index}
-                    className='
+                <Link href={`/brands/${item}`} key={index}>
+                    <div
+                        key={index}
+                        className='
                     hover:text-blue-600
                     cursor-pointer
-                    '>{item[0].toUpperCase() === letter && item}</div>
-            )}</div>
+                    '>
+                        {
+                            item[0].toUpperCase() === letter && item
+                        }
+                    </div>
+                </Link>
+            )}
+            </div>
         </div>
     )
 }

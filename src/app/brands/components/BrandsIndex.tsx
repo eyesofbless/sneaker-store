@@ -31,6 +31,7 @@ const BrandsIndex: React.FC<BrandsIndexProps> = ({ brands }) => {
     ));
     let firstLettersArray = Array.from(firstLettersSet).sort();
 
+
     return (
         <div>
             <div className='flex gap-x-4 mb-10 justify-center'>

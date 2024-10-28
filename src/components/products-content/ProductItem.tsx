@@ -18,12 +18,12 @@ const ProductItem: React.FC<ShoesItemProps> = ({ image_path, brand, model, price
     const pathname = usePathname()
     return (
         <div>
-            <Link href={`${pathname}/${id}`}>
+            <Link href={`${pathname}/${image_path}`}>
                 <Image
                     src={path}
                     alt={'Image'}
                     className='w-[100%] cursor-pointer'
-                    width={100} height={100}
+                    width={800} height={600}
                     sizes="(width: 100% height: auto)"
                 />
             </Link>

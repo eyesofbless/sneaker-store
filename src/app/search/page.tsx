@@ -2,7 +2,6 @@ import {getSearchProducts} from "@/requests/getSearchProducts";
 import SearchResults from "@/app/search/components/SearchResults";
 import {getProductsByFilters} from "@/requests/getProductsByFilters";
 import {SearchParams} from "../../../types";
-import {getFilters} from "@/requests/getFilters";
 
 const Search = async ({searchParams}: SearchParams) => {
 

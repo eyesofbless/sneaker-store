@@ -5,6 +5,7 @@ import { useSearchStore } from "@/stores/search-store";
 import ProductsLayout from "@/components/ProductsLayout";
 
 const SearchResults = ({ foundProducts, searchParams, models }: any) => {
+
     const { searchProducts }: any = useSearchStore();
 
     // Фильтруем товары из models, оставляя только те, которые присутствуют в searchProducts
@@ -19,8 +20,6 @@ const SearchResults = ({ foundProducts, searchParams, models }: any) => {
         colors: Array.from(new Set(filteredProducts.map((item: any) => item.color)))
         // можно добавить другие фильтры
     });
-
-    console.log(filteredProducts)
 
     useEffect(() => {
         const updatedFilters = {

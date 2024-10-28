@@ -27,6 +27,7 @@ const ProductsLayout = ({foundProducts, searchParams, models,filters}: any) => {
             title = 'АКСЕССУАРЫ'
     }
 
+    console.log(models)
 
     return (
         <div>

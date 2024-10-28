@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useEffect, useState } from "react";
-import CategoryFilters, { ShoesFilterProps } from "@/components/products-content/filters/CategoryFilters";
+import CategoryFilters, { ShoesFiltersProps } from "@/components/products-content/filters/CategoryFilters";
 
-const FiltersSidebar: React.FC<ShoesFilterProps> = ({ filters }) => {
+const FiltersSidebar: React.FC<ShoesFiltersProps> = ({ filters }) => {
     const [isVisible, setIsVisible] = useState(false);
 
     const toggleFilters = () => {

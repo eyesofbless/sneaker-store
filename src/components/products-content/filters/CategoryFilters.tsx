@@ -83,7 +83,18 @@ const CategoryFilters: React.FC<ShoesFiltersProps> = ({filters, isVisible}) => {
         );
     };
 
+    let title = ''
 
+    switch (pathname) {
+        case '/shoes':
+            title = 'Обувь'
+            break
+        case '/clothes':
+            title = 'Одежда'
+            break
+        default:
+            title = 'Аксессуары'
+    }
 
     return (
         <div className={`
@@ -93,7 +104,7 @@ const CategoryFilters: React.FC<ShoesFiltersProps> = ({filters, isVisible}) => {
         ${isVisible ? 'block w-full' : 'sm:block hidden w-[150px]'}`}>
             <div className={`${!isVisible && 'border-t-2 border-[#e0dedc]'}`}>
                 <div className='flex flex-row justify-between'>
-                    <p className='text-[#929292] mb-4'>Обувь</p>
+                    <p className='text-[#929292] mb-4'>{title}</p>
                     <IoIosArrowDown
                         onClick={() => toggleOpen(0)}
                         className='mt-[3px] cursor-pointer text-[#e0dedc]'
