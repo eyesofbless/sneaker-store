@@ -104,7 +104,7 @@ const CategoryFilters: React.FC<ShoesFiltersProps> = ({filters, isVisible}) => {
         ${isVisible ? 'block w-full' : 'sm:block hidden w-[150px]'}`}>
             <div className={`${!isVisible && 'border-t-2 border-[#e0dedc]'}`}>
                 <div className='flex flex-row justify-between'>
-                    <p className='text-[#929292] mb-4'>{title}</p>
+                    <p className='text-[#929292] mb-4'>{pathname.includes('brands')?'Категория':title}</p>
                     <IoIosArrowDown
                         onClick={() => toggleOpen(0)}
                         className='mt-[3px] cursor-pointer text-[#e0dedc]'
@@ -126,7 +126,7 @@ const CategoryFilters: React.FC<ShoesFiltersProps> = ({filters, isVisible}) => {
                     </ul>}
 
             </div>
-            <div className='border-t-2 border-[#e0dedc]'>
+            {!pathname.includes('brands') && <div className='border-t-2 border-[#e0dedc]'>
                 <div className='flex flex-row justify-between'>
                     <p className='text-[#929292] mb-4'>Бренды</p>
                     <IoIosArrowDown
@@ -147,7 +147,7 @@ const CategoryFilters: React.FC<ShoesFiltersProps> = ({filters, isVisible}) => {
                         </li>
                     )}
                 </ul>}
-            </div>
+            </div>}
             <div className='border-t-2 border-[#e0dedc]'>
                 <div className='flex flex-row justify-between'>
                     <p className='text-[#929292] mb-4'>Сезон</p>

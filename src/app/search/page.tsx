@@ -1,13 +1,19 @@
 import {getSearchProducts} from "@/requests/getSearchProducts";
 import SearchResults from "@/app/search/components/SearchResults";
 import {getProductsByFilters} from "@/requests/getProductsByFilters";
-import {SearchParams} from "../../../types";
+import {searchParamsInterface} from "../../../types";
+import React from "react";
 
-const Search = async ({searchParams}: SearchParams) => {
+interface SearchProps {
+    searchParams: searchParamsInterface
+}
+
+const Search:React.FC<SearchProps> = async ({searchParams}) => {
 
     let shoesModels = await getProductsByFilters(
         searchParams
     );
+
 
     let foundProducts
     if (searchParams?.query) {

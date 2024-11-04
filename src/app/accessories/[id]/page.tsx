@@ -2,11 +2,10 @@ import ProductPage from "@/components/product-card/ProductPage";
 import { getProductsById } from "@/requests/getProductsById";
 import Navigation from "@/components/header/Navigation";
 import { getSearchProducts } from "@/requests/getSearchProducts";
-import Accessories from "@/app/accessories/page";
 
 interface ParamsProps {
     params: {
-        id: number;
+        id: string;
     };
     searchParams: {
         query: string;

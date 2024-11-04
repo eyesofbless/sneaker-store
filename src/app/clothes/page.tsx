@@ -1,15 +1,17 @@
 import { getBrands } from "@/requests/getBrands";
 import { getProductsByFilters } from "@/requests/getProductsByFilters";
 import {getSearchProducts} from "@/requests/getSearchProducts";
-import {SearchParams} from "../../../types"
+import {searchParamsInterface} from "../../../types"
 import React from "react";
 import ProductsLayout from "@/components/ProductsLayout";
 import {getFilters} from "@/requests/getFilters";
 
 
+interface ClothesProps {
+    searchParams:searchParamsInterface
+}
 
-
-const Clothes:React.FC<SearchParams> = async ({searchParams}) => {
+const Clothes:React.FC<ClothesProps> = async ({searchParams}) => {
 
 
     let shoesModels = await getProductsByFilters(

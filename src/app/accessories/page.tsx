@@ -1,14 +1,16 @@
 import { getProductsByFilters } from "@/requests/getProductsByFilters";
 import {getSearchProducts} from "@/requests/getSearchProducts";
-import {SearchParams} from "../../../types"
+import {searchParamsInterface} from "../../../types"
 import React from "react";
 import ProductsLayout from "@/components/ProductsLayout";
 import {getFilters} from "@/requests/getFilters";
 
+interface AccessoriesProps {
+    searchParams:searchParamsInterface
+}
 
 
-
-const Accessories:React.FC<SearchParams> = async ({searchParams}) => {
+const Accessories:React.FC<AccessoriesProps> = async ({searchParams}) => {
 
 
     let shoesModels = await getProductsByFilters(

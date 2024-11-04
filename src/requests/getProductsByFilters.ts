@@ -1,9 +1,9 @@
 import { createClient } from "../../supabase/server";
-import { SearchParams } from "../../types";
+import { searchParamsInterface } from "../../types";
 
 // Функция принимает два отдельных аргумента: searchParams и table (опционально)
 export const getProductsByFilters = async (
-    searchParams: SearchParams["searchParams"], // Корректный тип для searchParams
+    searchParams: searchParamsInterface, // Корректный тип для searchParams
     table?: string // Таблица передается как строка
 ) => {
     const supabase = createClient();

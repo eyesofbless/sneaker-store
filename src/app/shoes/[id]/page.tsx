@@ -5,7 +5,7 @@ import { getSearchProducts } from "@/requests/getSearchProducts";
 
 interface ParamsProps {
     params: {
-        id: number;
+        id: string;
     };
     searchParams: {
         query: string;

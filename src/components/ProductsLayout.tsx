@@ -8,8 +8,15 @@ import ProductsList from "@/components/products-content/ProductsList";
 import {usePathname} from "next/navigation";
 import {useSearchStore} from "@/stores/search-store";
 
+interface ProductsLayoutProps {
+    foundProducts:any,
+    searchParams:any,
+    models:any,
+    filters:any,
+    brand?:string
+}
 
-const ProductsLayout = ({foundProducts, searchParams, models,filters}: any) => {
+const ProductsLayout = ({foundProducts, searchParams, models,filters,brand}: ProductsLayoutProps) => {
 
     const {query}:any = useSearchStore()
     const pathname = usePathname();
@@ -23,11 +30,14 @@ const ProductsLayout = ({foundProducts, searchParams, models,filters}: any) => {
         case '/clothes':
             title = 'ОДЕЖДА'
             break
+        case '/brands/'+brand:
+            if (brand) {
+                title = brand
+            }
+            break
         default:
             title = 'АКСЕССУАРЫ'
     }
-
-    console.log(models)
 
     return (
         <div>
@@ -40,11 +50,11 @@ const ProductsLayout = ({foundProducts, searchParams, models,filters}: any) => {
                 :
                 <div className='flex flex-col m-10 mt-[100px]'>
                 <p className='text-3xl font-bold sm:hidden'>
-                    {pathname==='/search'?`ТОВАРЫ ПО ЗАПРОСУ "${query.toUpperCase()}"`:title}
+                    {pathname==='/search'?`ТОВАРЫ ПО ЗАПРОСУ "${query.toUpperCase()}"`:title.toUpperCase()}
                 </p>
                 <div className='flex justify-between mb-5 mt-5 items-center'>
                     <p className='text-3xl font-bold sm:block hidden'>
-                        {pathname==='/search'?`ТОВАРЫ ПО ЗАПРОСУ "${query.toUpperCase()}"`:title}
+                        {pathname==='/search'?`ТОВАРЫ ПО ЗАПРОСУ "${query.toUpperCase()}"`:title.toUpperCase()}
                     </p>
                     <FiltersSidebar filters={filters}/>
                     <Filters currentFilters={searchParams}/>

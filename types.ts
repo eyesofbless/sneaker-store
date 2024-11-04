@@ -1,12 +1,10 @@
 
 
-export interface SearchParams {
-    searchParams: {
+export interface searchParamsInterface {
         brands: string[]
-        types: string[];
-        genders: string[];
-        seasons: string[];
-        selectedOption: string;
+        types: string[]
+        genders: string[]
+        seasons: string[]
+        selectedOption: string
         query:string
-    }
 }
