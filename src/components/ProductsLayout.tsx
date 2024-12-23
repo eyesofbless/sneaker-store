@@ -7,19 +7,26 @@ import CategoryFilters from "@/components/products-content/filters/CategoryFilte
 import ProductsList from "@/components/products-content/ProductsList";
 import {usePathname} from "next/navigation";
 import {useSearchStore} from "@/stores/search-store";
+import {useFiltersStore} from "@/stores/filters-store";
+import {useEffect, useState} from "react";
 
 interface ProductsLayoutProps {
     foundProducts:any,
     searchParams:any,
     models:any,
-    filters:any,
     brand?:string
 }
 
-const ProductsLayout = ({foundProducts, searchParams, models,filters,brand}: ProductsLayoutProps) => {
+const ProductsLayout = ({foundProducts, searchParams, models,brand}: ProductsLayoutProps) => {
 
     const {query}:any = useSearchStore()
     const pathname = usePathname();
+
+    const {setFilters,filters}:any = useFiltersStore();
+
+    useEffect(() => {
+        setFilters(models)
+    }, [pathname]);
 
     let title = ''
 
@@ -34,6 +41,9 @@ const ProductsLayout = ({foundProducts, searchParams, models,filters,brand}: Pro
             if (brand) {
                 title = brand
             }
+            break
+        case '/sale':
+            title = 'РАСПРОДАЖА'
             break
         default:
             title = 'АКСЕССУАРЫ'

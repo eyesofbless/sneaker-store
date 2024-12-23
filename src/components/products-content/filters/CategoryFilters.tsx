@@ -1,9 +1,9 @@
 'use client';
 
-import {IoIosArrowDown} from "react-icons/io";
 import React, {useEffect, useState} from "react";
 import {usePathname, useRouter} from "next/navigation";
 import qs from "query-string";
+import FiltersCard from "@/components/products-content/filters/FiltersCard";
 
 export interface ShoesFiltersProps {
     filters: any;
@@ -12,88 +12,69 @@ export interface ShoesFiltersProps {
 
 const CategoryFilters: React.FC<ShoesFiltersProps> = ({filters, isVisible}) => {
 
-    const pathname = usePathname()
+    const pathname = usePathname();
     const router = useRouter();
 
-    const [checkedStates, setCheckedStates] = useState<Record<string, boolean>>({});
+    // Общий объект состояния для всех фильтров
+    const [selectedFilters, setSelectedFilters] = useState<Record<string, string[]>>({
+        brands: [],
+        types: [],
+        seasons: [],
+        genders: [],
+    });
 
-    const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-    const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
-    const [selectedSeasons, setSelectedSeasons] = useState<string[]>([]);
-    const [selectedGenders, setSelectedGenders] = useState<string[]>([]);
-
-
-
+    // Обновляем URL при изменении фильтров
     useEffect(() => {
-        let query: Record<string, any> = {};
-
-        if (selectedBrands.length > 0) {
-            query.brands = selectedBrands.join(',');
-        }
-
-        if (selectedTypes.length > 0) {
-            query.types = selectedTypes.join(',');
-        }
-
-        if (selectedSeasons.length > 0) {
-            query.seasons = selectedSeasons.join(',');
-        }
-
-        if (selectedGenders.length > 0) {
-            query.genders = selectedGenders.join(',');
-        }
+        const query = Object.entries(selectedFilters)
+            .reduce((acc, [key, value]) => {
+                if (value.length > 0) {
+                    acc[key] = value.join(',');
+                }
+                return acc;
+            }, {} as Record<string, string>);
 
         const url = qs.stringifyUrl({
             url: pathname,
-            query: query,
+            query,
         });
 
         router.push(url);
-    }, [selectedBrands, selectedTypes, selectedSeasons, selectedGenders, router]);
+    }, [selectedFilters, pathname, router]);
 
-    let [open, setOpen] = useState([false, true, true, false]);
+    let [widgetState, setOpen] = useState([false, true, true, false]);
 
     const toggleOpen = (index: number) => {
-        const updatedOpen = open.map((item, i) => (i === index ? !item : item));
+        const updatedOpen = widgetState.map((item, i) => (i === index ? !item : item));
         setOpen(updatedOpen);
     };
 
-    const handleBrandChange = (brand: string, checked: boolean) => {
-        setCheckedStates(prev => ({...prev, [brand]: checked}));
-        setSelectedBrands(prev =>
-            checked ? [...prev, brand] : prev.filter(b => b !== brand)
-        );
+    const handleCategoryChange = (category: string, filterKey: string, checked: boolean) => {
+        setSelectedFilters((prev) => {
+            const updatedFilter = checked
+                ? [...prev[filterKey], category]
+                : prev[filterKey].filter((item) => item !== category);
+
+            return {
+                ...prev,
+                [filterKey]: updatedFilter,
+            };
+        });
     };
 
-    const handleTypeChange = (type: string, checked: boolean) => {
-        setSelectedTypes(prev =>
-            checked ? [...prev, type] : prev.filter(t => t !== type)
-        );
-    };
-
-    const handleSeasonChange = (season: string, checked: boolean) => {
-        setSelectedSeasons(prev =>
-            checked ? [...prev, season] : prev.filter(s => s !== season)
-        );
-    };
-
-    const handleGenderChange = (gender: string, checked: boolean) => {
-        setSelectedGenders(prev =>
-            checked ? [...prev, gender] : prev.filter(g => g !== gender)
-        );
-    };
-
-    let title = ''
+    let title = '';
 
     switch (pathname) {
         case '/shoes':
-            title = 'Обувь'
-            break
+            title = 'Обувь';
+            break;
         case '/clothes':
-            title = 'Одежда'
-            break
+            title = 'Одежда';
+            break;
+        case '/sale':
+            title = 'Категория';
+            break;
         default:
-            title = 'Аксессуары'
+            title = 'Аксессуары';
     }
 
     return (
@@ -102,100 +83,48 @@ const CategoryFilters: React.FC<ShoesFiltersProps> = ({filters, isVisible}) => {
         pr-2 
         overflow-y-auto 
         ${isVisible ? 'block w-full' : 'sm:block hidden w-[150px]'}`}>
-            <div className={`${!isVisible && 'border-t-2 border-[#e0dedc]'}`}>
-                <div className='flex flex-row justify-between'>
-                    <p className='text-[#929292] mb-4'>{pathname.includes('brands')?'Категория':title}</p>
-                    <IoIosArrowDown
-                        onClick={() => toggleOpen(0)}
-                        className='mt-[3px] cursor-pointer text-[#e0dedc]'
-                        size={25}/>
-                </div>
-                {open[0] &&
-                    <ul className='flex flex-col gap-2 mb-5'>
-                        {filters.types?.map((item:any) =>
-                            <li className="flex" key={item}>
-                                <input
-                                    className="mr-3 cursor-pointer"
-                                    type='checkbox'
-                                    checked={selectedTypes.includes(item)}
-                                    onChange={(e) => handleTypeChange(item, e.target.checked)}
-                                />
-                                <p>{item}</p>
-                            </li>
-                        )}
-                    </ul>}
-
-            </div>
-            {!pathname.includes('brands') && <div className='border-t-2 border-[#e0dedc]'>
-                <div className='flex flex-row justify-between'>
-                    <p className='text-[#929292] mb-4'>Бренды</p>
-                    <IoIosArrowDown
-                        onClick={() => toggleOpen(1)}
-                        className='mt-[3px] cursor-pointer text-[#e0dedc]'
-                        size={25}/>
-                </div>
-                {open[1] && <ul className="flex flex-col gap-2 mb-5">
-                    {filters.brands?.map((item:any) =>
-                        <li className="flex" key={item}>
-                            <input
-                                className="mr-3 cursor-pointer"
-                                type='checkbox'
-                                checked={checkedStates[item] || false}
-                                onChange={(e) => handleBrandChange(item, e.target.checked)}
-                            />
-                            <p>{item}</p>
-                        </li>
-                    )}
-                </ul>}
-            </div>}
-            <div className='border-t-2 border-[#e0dedc]'>
-                <div className='flex flex-row justify-between'>
-                    <p className='text-[#929292] mb-4'>Сезон</p>
-                    <IoIosArrowDown
-                        onClick={() => toggleOpen(2)}
-                        className='mt-[3px] cursor-pointer text-[#e0dedc]'
-                        size={25}/>
-                </div>
-                {open[2] &&
-                    <ul className="flex flex-col gap-2 mb-5">
-                        {filters.seasons?.map((item:any) =>
-                            <li className="flex" key={item}>
-                                <input
-                                    className="mr-3 cursor-pointer"
-                                    type='checkbox'
-                                    checked={selectedSeasons.includes(item)}
-                                    onChange={(e) => handleSeasonChange(item, e.target.checked)}
-                                />
-                                <p>{item}</p>
-                            </li>
-                        )}
-                    </ul>}
-            </div>
-            <div className='border-t-2 border-[#e0dedc]'>
-                <div className='flex flex-row justify-between'>
-                    <p className='text-[#929292] mb-4'>Пол</p>
-                    <IoIosArrowDown
-                        onClick={() => toggleOpen(3)}
-                        className='mt-[3px] cursor-pointer text-[#e0dedc]'
-                        size={25}/>
-                </div>
-                {open[3] &&
-                    <ul className="flex flex-col gap-2 mb-5">
-                        {filters.genders?.map((item:any) =>
-                            <li className="flex" key={item}>
-                                <input
-                                    className="mr-3 cursor-pointer"
-                                    type='checkbox'
-                                    checked={selectedGenders.includes(item)}
-                                    onChange={(e) => handleGenderChange(item, e.target.checked)}
-                                />
-                                <p>{item}</p>
-                            </li>
-                        )}
-                    </ul>}
-            </div>
+            {!pathname.includes('search') && (
+                <FiltersCard filters={filters}
+                             isVisible={isVisible}
+                             selectedFilters={selectedFilters}
+                             filterName={title}
+                             handleCategoryChange={handleCategoryChange}
+                             filterType={'types'}
+                             toggleOpen={toggleOpen}
+                             widgetState={widgetState}
+                             widgetStateNumber={0}/>
+            )}
+            {!pathname.includes('brands') && (
+                <FiltersCard filters={filters}
+                             isVisible={isVisible}
+                             selectedFilters={selectedFilters}
+                             filterName={'Бренды'}
+                             handleCategoryChange={handleCategoryChange}
+                             filterType={'brands'}
+                             toggleOpen={toggleOpen}
+                             widgetState={widgetState}
+                             widgetStateNumber={1}/>
+            )}
+            <FiltersCard filters={filters}
+                         isVisible={isVisible}
+                         selectedFilters={selectedFilters}
+                         filterName={'Сезоны'}
+                         handleCategoryChange={handleCategoryChange}
+                         filterType={'seasons'}
+                         toggleOpen={toggleOpen}
+                         widgetState={widgetState}
+                         widgetStateNumber={2}/>
+            <FiltersCard filters={filters}
+                         isVisible={isVisible}
+                         selectedFilters={selectedFilters}
+                         filterName={'Пол'}
+                         handleCategoryChange={handleCategoryChange}
+                         filterType={'genders'}
+                         toggleOpen={toggleOpen}
+                         widgetState={widgetState}
+                         widgetStateNumber={3}/>
         </div>
     );
-}
+};
 
 export default CategoryFilters;

@@ -4,13 +4,14 @@ import Image from "next/image";
 import useLoadImage from "@/hooks/useLoadImage";
 import {IoIosCheckmarkCircle} from "react-icons/io";
 import {RxCross2} from "react-icons/rx";
+import {MdDiscount} from "react-icons/md";
 import ProductDescription from "@/components/product-card/ProductDescription";
 import AddButton from "@/components/product-card/AddButton";
 import {useState} from "react";
 
 const ProductPage = ({product}: any) => {
 
-    const path = useLoadImage(product.image_path,product.bucket,false);
+    const path = useLoadImage(product.image_path, product.bucket, false);
 
     const [size, setSize] = useState(product.sizes[0])
 
@@ -57,8 +58,17 @@ const ProductPage = ({product}: any) => {
                                     <p>{product.brand}</p>
                                     <p className='block w-full'>{product.model}</p>
                                 </div>
-                                <p className="text-[27px]">{product.price} ₽</p>
-                                <div className='
+                                <div className={"flex gap-2 items-center"}>
+                                    <p className={`${product.discount_price && 
+                                    "text-[20px] line-through text-gray-400"}`}>
+                                        {product.price} ₽
+                                    </p>
+                                    {product.discount_price
+                                        &&
+                                        <p className="text-[27px]">{product.discount_price} ₽</p>}
+                                </div>
+                                <div className="flex gap-2">
+                                    <span className='
                                 flex
                                 items-center
                                 gap-2
@@ -69,11 +79,27 @@ const ProductPage = ({product}: any) => {
                                 mt-5
                                 p-2
                                 rounded-lg'>
-                                    {product.in_stock ?
-                                        <IoIosCheckmarkCircle color={'#1E88E5'}/>
-                                        :
-                                        <RxCross2 color={'red'}/>}
-                                    {product.in_stock ? 'В наличии' : 'Нет в наличии'}
+                                        {product.in_stock ?
+                                            <IoIosCheckmarkCircle color={'#1E88E5'}/>
+                                            :
+                                            <RxCross2 color={'red'}/>}
+                                        {product.in_stock ? 'В наличии' : 'Нет в наличии'}
+                                    </span>
+                                    {product.discount_price && <span className='
+                                flex
+                                items-center
+                                gap-2
+                                border
+                                border-gray-300
+                                w-min
+                                text-nowrap
+                                mt-5
+                                p-2
+                                rounded-lg'>
+                                            <MdDiscount color={'#1E88E5'}/>
+                                    Скидка
+                                </span>
+                                }
                                 </div>
                             </div>
                             <div className='mt-10'>

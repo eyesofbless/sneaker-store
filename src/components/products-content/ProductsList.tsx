@@ -26,15 +26,16 @@ const ProductsList: React.FC<ProductsListProps> = ({models}) => {
         md:grid-cols-4
         lg:grid-cols-5
         gap-[10px]">
-            {models?.map((sneakers: any) => (
+            {models?.map((model: any) => (
                 <ProductItem
-                    id={sneakers.id}
-                    key={sneakers.id}
-                    image_path={sneakers.image_path}
-                    brand={sneakers.brand}
-                    model={sneakers.model}
-                    price={sneakers.price}
-                    bucket={sneakers.bucket}
+                    id={model.id}
+                    key={model.id}
+                    image_path={model.image_path}
+                    brand={model.brand}
+                    model={model.model}
+                    price={model.price}
+                    bucket={model.bucket}
+                    discount_price={model.discount_price}
                 />
             ))}
         </div>

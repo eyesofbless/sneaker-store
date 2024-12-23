@@ -22,12 +22,9 @@ const Accessories:React.FC<AccessoriesProps> = async ({searchParams}) => {
         foundProducts = await getSearchProducts(searchParams.query);
     }
 
-    let filters = await getFilters('accessories')
-
     return (
         <div>
             <ProductsLayout foundProducts={foundProducts}
-                            filters={filters}
                             searchParams={searchParams}
                             models={shoesModels}/>
         </div>
