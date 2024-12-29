@@ -14,10 +14,11 @@ interface ProductsLayoutProps {
     foundProducts:any,
     searchParams:any,
     models:any,
-    brand?:string
+    brand?:string,
+    gender?:string
 }
 
-const ProductsLayout = ({foundProducts, searchParams, models,brand}: ProductsLayoutProps) => {
+const ProductsLayout = ({foundProducts, searchParams, models,brand,gender}: ProductsLayoutProps) => {
 
     const {query}:any = useSearchStore()
     const pathname = usePathname();
@@ -30,24 +31,32 @@ const ProductsLayout = ({foundProducts, searchParams, models,brand}: ProductsLay
 
     let title = ''
 
-    switch (pathname) {
-        case '/shoes':
-            title = 'ОБУВЬ'
+    switch (true) { // Используем true для гибкости условий
+        case pathname === '/shoes':
+            title = 'ОБУВЬ';
+            break;
+        case pathname === '/clothes':
+            title = 'ОДЕЖДА';
+            break;
+        case pathname.startsWith('/brands/'): // Проверяем, начинается ли с '/brands/'
+            title = brand || 'БРЕНД'; // Если бренд не найден, задать дефолтное значение
+            break;
+        case pathname === '/sale':
+            title = 'РАСПРОДАЖА';
+            break;
+        case pathname === '/male':
+            title = 'МУЖСКОЕ';
+            break;
+        case pathname === '/female':
+            title = 'ЖЕНСКОЕ';
             break
-        case '/clothes':
-            title = 'ОДЕЖДА'
-            break
-        case '/brands/'+brand:
-            if (brand) {
-                title = brand
-            }
-            break
-        case '/sale':
-            title = 'РАСПРОДАЖА'
+        case pathname === '/all_gen':
+            title = 'ВСЕМ';
             break
         default:
-            title = 'АКСЕССУАРЫ'
+            title = 'АКСЕССУАРЫ';
     }
+
 
     return (
         <div>

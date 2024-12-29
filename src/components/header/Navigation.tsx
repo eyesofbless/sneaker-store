@@ -9,6 +9,7 @@ import React, {useState} from "react";
 import Sidebar from "@/components/header/Sidebar";
 import BasketIcon from "@/components/header/BasketIcon";
 import {usePathname} from "next/navigation";
+import Link from "next/link";
 
 
 interface NavigationProps {
@@ -33,13 +34,15 @@ const Navigation: React.FC<NavigationProps> = ({foundProducts=[]}) => {
 
     return (
         <Header>
-            <Image
-                src={'/images/sneaker-icon.png'}
-                alt={'logo'}
-                width={"50"}
-                height={"50"}
-                className="cursor-pointer"
-            />
+            <Link href="/">
+                <Image
+                    src={'/images/sneaker-icon.png'}
+                    alt={'logo'}
+                    width={"50"}
+                    height={"50"}
+                    className="cursor-pointer"
+                />
+            </Link>
             <div className="sm:block hidden">
                 <div className="flex gap-3">
                     <HeaderLink styles={stylesForLink} name={'Бренды'} path={'/brands'}/>

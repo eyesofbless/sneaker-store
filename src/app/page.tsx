@@ -1,5 +1,5 @@
 import Navigation from "@/components/header/Navigation";
-import MainContent from "@/components/MainContent";
+import MainPage from "@/components/MainPage";
 import {getSearchProducts} from "@/requests/getSearchProducts";
 
 export const revalidate = 0
@@ -18,8 +18,8 @@ export default async function Home({
     return (
         <div>
             <Navigation foundProducts={foundProducts} />
-            <main className="flex min-h-screen flex-col items-center justify-between p-24">
-                <MainContent/>
+            <main className="flex flex-col items-center justify-between mt-[100px] p-[30px]">
+                <MainPage/>
             </main>
         </div>
     );

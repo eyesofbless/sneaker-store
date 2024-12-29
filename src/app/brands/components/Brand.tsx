@@ -35,6 +35,7 @@ const Brand: React.FC<BrandProps> = async ({letter, brands}) => {
                     hover:text-blue-600
                     cursor-pointer
                     '>
+
                         {
                             item[0].toUpperCase() === letter && item
                         }

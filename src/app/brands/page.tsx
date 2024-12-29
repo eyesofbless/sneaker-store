@@ -33,6 +33,7 @@ export default async function Brands({
                 flex-col
                 m-10
                 mt-[100px]
+                mb-[125px]
                 items-center
                 '>
                 <div className='mb-4'>

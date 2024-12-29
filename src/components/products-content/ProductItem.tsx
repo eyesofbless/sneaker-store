@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 
-interface ShoesItemProps {
+interface ItemProps {
     image_path: string;
     brand: string;
     model: string;
@@ -13,7 +13,7 @@ interface ShoesItemProps {
     discount_price: number;
 }
 
-const ProductItem: React.FC<ShoesItemProps> = ({image_path, brand, model, price, bucket, discount_price}) => {
+const ProductItem: React.FC<ItemProps> = ({image_path, brand, model, price, bucket, discount_price}) => {
     const path = useLoadImage(image_path, bucket, true);
     return (
         <div>

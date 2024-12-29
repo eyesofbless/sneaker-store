@@ -1,18 +1,18 @@
 import { getProductsByFilters } from "@/requests/getProductsByFilters";
 import { getSearchProducts } from "@/requests/getSearchProducts";
 import React from "react";
-import { searchParamsInterface } from "../../../../types";
-import { getProductsByBrand } from "@/requests/getProductsByBrand";
+import {searchParamsInterface} from "../../../types";
 import ProductsLayoutWrapper from "@/app/brands/[brand]/ProductsLayoutWrapper";
+import {getProductsByGender} from "@/requests/getProductsByGender";
 
 interface ParamsProps {
     params: {
-        brand: string;
+        gender: string;
     };
     searchParams: searchParamsInterface;  // Убедитесь, что searchParams соответствует типу SearchParams
 }
 
-const Brand:React.FC<ParamsProps> = async ({ params, searchParams }) => {
+const GenderPage:React.FC<ParamsProps> = async ({ params, searchParams }) => {
     // Получение моделей по фильтрам
     const shoesModels = await getProductsByFilters(searchParams);
 
@@ -22,14 +22,9 @@ const Brand:React.FC<ParamsProps> = async ({ params, searchParams }) => {
         foundProducts = await getSearchProducts(searchParams.query);
     }
 
-    let brandForReq
-
-    if (params.brand.includes('%20')) {
-        brandForReq = params.brand.replace('%20', ' ');
-    }
 
     // Получение продуктов по бренду
-    const models = await getProductsByBrand(params.brand.includes('%20') ? brandForReq : params.brand); // Добавлено await для асинхронного вызова
+    const models = await getProductsByGender(params.gender)
 
     return (
         <div>
@@ -38,10 +33,9 @@ const Brand:React.FC<ParamsProps> = async ({ params, searchParams }) => {
                 searchParams={searchParams}
                 models={models}
                 shoesModels={shoesModels}
-                brand = {params.brand.includes('%20') ? brandForReq : params.brand}// Берется первый элемент моделей
             />
         </div>
     );
 };
 
-export default Brand;
+export default GenderPage;

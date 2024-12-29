@@ -11,6 +11,7 @@ const ProductsLayoutWrapper = ({foundProducts,shoesModels,searchParams,models,br
         shoesModels.some((product: any) => product.article === model.article)
     );
 
+
     return (
         <div>
             <ProductsLayout

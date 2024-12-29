@@ -20,6 +20,7 @@ const ProductsList: React.FC<ProductsListProps> = ({models}) => {
 
     return (
         <div className="
+        mb-[50px]
         grid
         grid-cols-2
         sm:grid-cols-3

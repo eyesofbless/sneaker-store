@@ -19,7 +19,6 @@ const ProductPage = ({product}: any) => {
     return (
         <div>
             <div className="
-            h-screen
             flex
             justify-center
             items-start
@@ -59,8 +58,8 @@ const ProductPage = ({product}: any) => {
                                     <p className='block w-full'>{product.model}</p>
                                 </div>
                                 <div className={"flex gap-2 items-center"}>
-                                    <p className={`${product.discount_price && 
-                                    "text-[20px] line-through text-gray-400"}`}>
+                                    <p className={`${product.discount_price ?
+                                    "text-[20px] line-through text-gray-400":"text-[27px]"}`}>
                                         {product.price} ₽
                                     </p>
                                     {product.discount_price
