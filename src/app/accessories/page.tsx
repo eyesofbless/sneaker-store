@@ -13,7 +13,7 @@ interface AccessoriesProps {
 const Accessories:React.FC<AccessoriesProps> = async ({searchParams}) => {
 
 
-    let shoesModels = await getProductsByFilters(
+    let models = await getProductsByFilters(
         searchParams,'accessories'
     );
 
@@ -26,7 +26,7 @@ const Accessories:React.FC<AccessoriesProps> = async ({searchParams}) => {
         <div>
             <ProductsLayout foundProducts={foundProducts}
                             searchParams={searchParams}
-                            models={shoesModels}/>
+                            models={models}/>
         </div>
     );
 };

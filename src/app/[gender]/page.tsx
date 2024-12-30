@@ -14,7 +14,7 @@ interface ParamsProps {
 
 const GenderPage:React.FC<ParamsProps> = async ({ params, searchParams }) => {
     // Получение моделей по фильтрам
-    const shoesModels = await getProductsByFilters(searchParams);
+    const products = await getProductsByFilters(searchParams);
 
     // Проверка наличия поискового запроса
     let foundProducts;
@@ -32,7 +32,7 @@ const GenderPage:React.FC<ParamsProps> = async ({ params, searchParams }) => {
                 foundProducts={foundProducts}
                 searchParams={searchParams}
                 models={models}
-                shoesModels={shoesModels}
+                shoesModels={products}
             />
         </div>
     );

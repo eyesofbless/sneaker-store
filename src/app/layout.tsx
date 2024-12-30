@@ -8,7 +8,7 @@ import NavWrapper from "@/components/header/NavWrapper";
 const inter = Open_Sans({subsets: ["latin"]});
 
 export const metadata: Metadata = {
-    title: "Sneaker store",
+    title: "sneaker store",
     description: "",
 };
 
@@ -18,10 +18,11 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
     return (
         <html lang="en">
         <body className={inter.className}>
-
-        <Navigation/>
-        {children}
-         <Footer/>
+        <div className="flex flex-col h-[100vh]">
+            <Navigation/>
+            {children}
+            <Footer/>
+        </div>
         </body>
         </html>
     );

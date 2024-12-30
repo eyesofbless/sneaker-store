@@ -10,7 +10,7 @@ interface SearchProps {
 
 const Search:React.FC<SearchProps> = async ({searchParams}) => {
 
-    let shoesModels = await getProductsByFilters(
+    let products = await getProductsByFilters(
         searchParams
     );
 
@@ -26,7 +26,7 @@ const Search:React.FC<SearchProps> = async ({searchParams}) => {
             <SearchResults
                 foundProducts={foundProducts}
                 searchParams={searchParams}
-                models={shoesModels}
+                models={products}
                 />
         </div>
     )

@@ -15,10 +15,9 @@ interface ProductsLayoutProps {
     searchParams:any,
     models:any,
     brand?:string,
-    gender?:string
 }
 
-const ProductsLayout = ({foundProducts, searchParams, models,brand,gender}: ProductsLayoutProps) => {
+const ProductsLayout = ({foundProducts, searchParams, models,brand}: ProductsLayoutProps) => {
 
     const {query}:any = useSearchStore()
     const pathname = usePathname();
@@ -27,7 +26,7 @@ const ProductsLayout = ({foundProducts, searchParams, models,brand,gender}: Prod
 
     useEffect(() => {
         setFilters(models)
-    }, [pathname]);
+    }, [pathname,query]);
 
     let title = ''
 
