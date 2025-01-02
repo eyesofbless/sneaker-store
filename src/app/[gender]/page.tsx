@@ -1,9 +1,8 @@
 import { getProductsByFilters } from "@/requests/getProductsByFilters";
-import { getSearchProducts } from "@/requests/getSearchProducts";
 import React from "react";
 import {searchParamsInterface} from "../../../types";
-import ProductsLayoutWrapper from "@/app/brands/[brand]/ProductsLayoutWrapper";
 import {getProductsByGender} from "@/requests/getProductsByGender";
+import ProductsLayout from "@/components/ProductsLayout";
 
 interface ParamsProps {
     params: {
@@ -15,24 +14,18 @@ interface ParamsProps {
 const GenderPage:React.FC<ParamsProps> = async ({ params, searchParams }) => {
     // Получение моделей по фильтрам
     const products = await getProductsByFilters(searchParams);
-
-    // Проверка наличия поискового запроса
-    let foundProducts;
-    if (searchParams?.query) {  // Исправлено условие
-        foundProducts = await getSearchProducts(searchParams.query);
-    }
-
-
     // Получение продуктов по бренду
     const models = await getProductsByGender(params.gender)
 
+    const filteredProducts = models.filter((model: any) =>
+        products.some((product: any) => product.article === model.article)
+    );
+
     return (
         <div>
-            <ProductsLayoutWrapper
-                foundProducts={foundProducts}
+            <ProductsLayout
+                models={filteredProducts}
                 searchParams={searchParams}
-                models={models}
-                shoesModels={products}
             />
         </div>
     );

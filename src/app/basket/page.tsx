@@ -8,7 +8,6 @@ const Basket = async () => {
 
     return (
         <div>
-            <Navigation/>
             <div
                 className='
                 flex

@@ -4,7 +4,6 @@ import Header from "@/components/header/Header";
 import HeaderLink from "@/components/header/HeaderLink";
 import Image from "next/image";
 import {RxHamburgerMenu} from "react-icons/rx";
-import Input from "@/components/header/Input";
 import React, {useState} from "react";
 import Sidebar from "@/components/header/Sidebar";
 import BasketIcon from "@/components/header/BasketIcon";
@@ -17,7 +16,7 @@ interface NavigationProps {
     foundProducts?: any
 }
 
-const Navigation: React.FC<NavigationProps> = ({foundProducts=[]}) => {
+const Navigation: React.FC<NavigationProps> = () => {
 
     const [isOpen, setIsOpen] = useState(false);
 

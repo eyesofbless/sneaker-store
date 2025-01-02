@@ -4,13 +4,14 @@ import React, {useEffect, useState} from "react";
 import {usePathname, useRouter} from "next/navigation";
 import qs from "query-string";
 import FiltersCard from "@/components/products-content/filters/FiltersCard";
+import {filtersInterface} from "../../../../types";
 
-export interface ShoesFiltersProps {
-    filters: any;
+export interface FiltersProps {
+    filters: filtersInterface;
     isVisible?: boolean;
 }
 
-const CategoryFilters: React.FC<ShoesFiltersProps> = ({filters, isVisible}) => {
+const CategoryFilters: React.FC<FiltersProps> = ({filters, isVisible}) => {
 
     const pathname = usePathname();
     const router = useRouter();

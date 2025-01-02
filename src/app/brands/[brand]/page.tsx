@@ -1,9 +1,8 @@
 import { getProductsByFilters } from "@/requests/getProductsByFilters";
-import { getSearchProducts } from "@/requests/getSearchProducts";
 import React from "react";
 import { searchParamsInterface } from "../../../../types";
 import { getProductsByBrand } from "@/requests/getProductsByBrand";
-import ProductsLayoutWrapper from "@/app/brands/[brand]/ProductsLayoutWrapper";
+import ProductsLayout from "@/components/ProductsLayout";
 
 interface ParamsProps {
     params: {
@@ -16,12 +15,6 @@ const Brand:React.FC<ParamsProps> = async ({ params, searchParams }) => {
     // Получение моделей по фильтрам
     const products = await getProductsByFilters(searchParams);
 
-    // Проверка наличия поискового запроса
-    let foundProducts;
-    if (searchParams?.query) {  // Исправлено условие
-        foundProducts = await getSearchProducts(searchParams.query);
-    }
-
     let brandForReq
 
     if (params.brand.includes('%20')) {
@@ -29,16 +22,22 @@ const Brand:React.FC<ParamsProps> = async ({ params, searchParams }) => {
     }
 
     // Получение продуктов по бренду
-    const models = await getProductsByBrand(params.brand.includes('%20') ? brandForReq : params.brand); // Добавлено await для асинхронного вызова
+    const models = await getProductsByBrand(params.brand.includes('%20')
+        ?
+        brandForReq
+        :
+        params.brand); // Добавлено await для асинхронного вызова
+
+    const filteredProducts = models.filter((model: any) =>
+        products.some((product: any) => product.article === model.article)
+    );
 
     return (
         <div>
-            <ProductsLayoutWrapper
-                foundProducts={foundProducts}
+            <ProductsLayout
                 searchParams={searchParams}
-                models={models}
-                shoesModels={products}
-                brand = {params.brand.includes('%20') ? brandForReq : params.brand}// Берется первый элемент моделей
+                models={filteredProducts}
+                brand = {params.brand.includes('%20') ? brandForReq : params.brand}
             />
         </div>
     );

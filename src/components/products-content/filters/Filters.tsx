@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import {usePathname, useRouter} from "next/navigation";
 import qs from "query-string";
 
+
+
 const Filters = ({ currentFilters }:any) => {
     const [selectedOption, setSelectedOption] = useState('');
 

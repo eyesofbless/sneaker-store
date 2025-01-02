@@ -5,9 +5,10 @@ import { RxCross1 } from "react-icons/rx";
 import useAddProduct from "@/hooks/basket/useAddProduct";
 import useDeleteProduct from "@/hooks/basket/useDeleteProduct";
 import useUpdateProduct from "@/hooks/basket/useUpdateProduct";
+import {ProductInterface} from "../../../../types";
 
 interface ProductCardProps {
-    product: any;
+    product: ProductInterface;
     size: number;
     count: number;
 }

@@ -2,9 +2,10 @@
 import ProductItem from "@/components/products-content/ProductItem";
 import React, {useEffect} from "react";
 import {useBasketStore} from "@/stores/basket-store";
+import {ProductInterface} from "../../../types";
 
 interface ProductsListProps {
-    models: any
+    models: ProductInterface[]
 }
 
 const ProductsList: React.FC<ProductsListProps> = ({models}) => {

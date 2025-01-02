@@ -2,8 +2,7 @@ import type {Metadata} from "next";
 import {Open_Sans} from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/header/Navigation";
-import Footer from "@/components/footer/Footer";
-import NavWrapper from "@/components/header/NavWrapper";
+
 
 const inter = Open_Sans({subsets: ["latin"]});
 
@@ -21,7 +20,6 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
         <div className="flex flex-col h-[100vh]">
             <Navigation/>
             {children}
-
         </div>
         </body>
         </html>

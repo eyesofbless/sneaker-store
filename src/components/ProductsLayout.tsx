@@ -1,32 +1,29 @@
 'use client'
 
-import Navigation from "@/components/header/Navigation";
 import FiltersSidebar from "@/components/products-content/filters/FiltersSidebar";
 import Filters from "@/components/products-content/filters/Filters";
 import CategoryFilters from "@/components/products-content/filters/CategoryFilters";
 import ProductsList from "@/components/products-content/ProductsList";
 import {usePathname} from "next/navigation";
-import {useSearchStore} from "@/stores/search-store";
 import {useFiltersStore} from "@/stores/filters-store";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
+import {ProductInterface} from "../../types";
 
 interface ProductsLayoutProps {
-    foundProducts:any,
-    searchParams:any,
-    models:any,
-    brand?:string,
+    searchParams: any,
+    models: ProductInterface[],
+    brand?: string,
 }
 
-const ProductsLayout = ({foundProducts, searchParams, models,brand}: ProductsLayoutProps) => {
+const ProductsLayout = ({searchParams, models, brand}: ProductsLayoutProps) => {
 
-    const {query}:any = useSearchStore()
     const pathname = usePathname();
 
-    const {setFilters,filters}:any = useFiltersStore();
+    const {setFilters, filters}: any = useFiltersStore();
 
     useEffect(() => {
         setFilters(models)
-    }, [pathname,query]);
+    }, [pathname]);
 
     let title = ''
 
@@ -56,24 +53,24 @@ const ProductsLayout = ({foundProducts, searchParams, models,brand}: ProductsLay
             title = 'АКСЕССУАРЫ';
     }
 
+    console.log(filters)
 
     return (
         <div>
-            <Navigation foundProducts={foundProducts}/>
-                <div className='flex flex-col m-10 mt-[100px]'>
+            <div className='flex flex-col m-10 mt-[100px]'>
                 <p className='text-3xl font-bold sm:hidden'>
-                    {pathname==='/search'?`ТОВАРЫ ПО ЗАПРОСУ "${query.toUpperCase()}"`:title.toUpperCase()}
+                    {title.toUpperCase()}
                 </p>
                 <div className='flex justify-between mb-5 mt-5 items-center'>
                     <p className='text-3xl font-bold sm:block hidden'>
-                        {pathname==='/search'?`ТОВАРЫ ПО ЗАПРОСУ "${query.toUpperCase()}"`:title.toUpperCase()}
+                        {title.toUpperCase()}
                     </p>
                     <FiltersSidebar filters={filters}/>
                     <Filters currentFilters={searchParams}/>
                 </div>
                 <div className='flex justify-between items-start'>
                     <div className='sticky top-[100px]'>
-                        <CategoryFilters filters={filters} />
+                        <CategoryFilters filters={filters}/>
                     </div>
                     <div className='sm:pl-3'>
                         <ProductsList models={models}/>

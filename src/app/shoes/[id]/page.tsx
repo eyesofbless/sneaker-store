@@ -7,25 +7,16 @@ interface ParamsProps {
     params: {
         id: string;
     };
-    searchParams: {
-        query: string;
-    }
 }
 
-const Page = async ({ params,searchParams }: ParamsProps) => {
+const Page = async ({ params}: ParamsProps) => {
 
-
-    let foundProducts
-    if (searchParams.query) {
-        foundProducts = await getSearchProducts(searchParams.query);
-    }
 
     // Получаем данные об одежде по id
     const shoes = await getProductsById(params.id,'shoes');
 
     return (
         <div>
-            <Navigation foundProducts={foundProducts}  />
             <ProductPage product={shoes[0]} />
         </div>
     );
