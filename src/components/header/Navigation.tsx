@@ -10,6 +10,7 @@ import Sidebar from "@/components/header/Sidebar";
 import BasketIcon from "@/components/header/BasketIcon";
 import {usePathname} from "next/navigation";
 import Link from "next/link";
+import {IoSearchSharp} from "react-icons/io5";
 
 
 interface NavigationProps {
@@ -56,7 +57,12 @@ const Navigation: React.FC<NavigationProps> = ({foundProducts=[]}) => {
             <div className="sm:block hidden">
                 {pathname !== '/basket' &&
                     <div className="flex gap-x-4">
-                        <Input foundProducts={foundProducts}/>
+                        <Link href="/search">
+                            <IoSearchSharp
+                                className='relative text-black cursor-pointer'
+                                size={35}
+                            />
+                        </Link>
                         <BasketIcon/>
                     </div>}
             </div>
@@ -66,7 +72,12 @@ const Navigation: React.FC<NavigationProps> = ({foundProducts=[]}) => {
                 <RxHamburgerMenu onClick={toggleMenu} className={'text-black cursor-pointer'} size={40}/>
                 {pathname !== '/basket' &&
                     <div className="flex gap-x-4">
-                        <Input foundProducts={foundProducts}/>
+                        <Link href="/search">
+                            <IoSearchSharp
+                                className='relative text-black cursor-pointer'
+                                size={35}
+                            />
+                        </Link>
                         <BasketIcon/>
                     </div>
                 }

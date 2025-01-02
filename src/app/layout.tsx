@@ -21,7 +21,7 @@ export default function RootLayout({children}: Readonly<{ children: React.ReactN
         <div className="flex flex-col h-[100vh]">
             <Navigation/>
             {children}
-            <Footer/>
+
         </div>
         </body>
         </html>

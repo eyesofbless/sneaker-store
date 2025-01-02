@@ -60,12 +60,6 @@ const ProductsLayout = ({foundProducts, searchParams, models,brand}: ProductsLay
     return (
         <div>
             <Navigation foundProducts={foundProducts}/>
-            {((pathname === "/search") && (!query)) ?
-                <div className="w-full flex flex-col items-center justify-center">
-                    <p className="mt-[100px]">Извините, по вашему запросу ничего не найдено</p>
-                    <p className="text-[50px]">:(</p>
-                </div>
-                :
                 <div className='flex flex-col m-10 mt-[100px]'>
                 <p className='text-3xl font-bold sm:hidden'>
                     {pathname==='/search'?`ТОВАРЫ ПО ЗАПРОСУ "${query.toUpperCase()}"`:title.toUpperCase()}
@@ -85,7 +79,7 @@ const ProductsLayout = ({foundProducts, searchParams, models,brand}: ProductsLay
                         <ProductsList models={models}/>
                     </div>
                 </div>
-            </div>}
+            </div>
         </div>
     )
 }
